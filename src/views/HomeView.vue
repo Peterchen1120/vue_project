@@ -28,13 +28,7 @@
         </div>
 
         <div class="energy-visual" aria-hidden="true">
-          <div class="orbit orbit-one"></div>
-          <div class="orbit orbit-two"></div>
-          <div class="energy-core"></div>
-          <div class="energy-node node-sun">☀ 太陽</div>
-          <div class="energy-node node-water">💧 水流</div>
-          <div class="energy-node node-wind">🌬 風力</div>
-          <div class="energy-node node-power">⚡ 電力</div>
+          <img class="energy-img" :src="energyImg" alt="再生能源示意圖" />
         </div>
       </div>
     </section>
@@ -92,6 +86,7 @@
 <script setup>
     import { computed, ref } from 'vue'
     import { RouterLink } from 'vue-router'
+    import energyImg from '@/assets/energy.png'
 
     const testimonials = [
     {
@@ -306,90 +301,19 @@
 }
 
 .energy-visual {
-  position: relative;
-  min-height: 380px;
-  border-radius: 32px;
-  overflow: hidden;
-  background:
-    linear-gradient(rgba(15, 118, 110, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 118, 110, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 50% 48%, rgba(14, 165, 233, 0.28), transparent 34%),
-    rgba(255, 255, 255, 0.9);
-  background-size: 34px 34px, 34px 34px, auto, auto;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12);
-}
-
-.energy-core {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 138px;
-  height: 138px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 30%, #fef08a, transparent 24%),
-    radial-gradient(circle, #22d3ee 0%, #0f766e 58%, #0f172a 100%);
-  box-shadow:
-    0 0 34px rgba(14, 165, 233, 0.38),
-    0 0 70px rgba(15, 118, 110, 0.28);
-  transform: translate(-50%, -50%);
-}
-
-.orbit {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  border: 1px solid rgba(2, 132, 199, 0.24);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.orbit-one {
-  width: 270px;
-  height: 270px;
-}
-
-.orbit-two {
-  width: 360px;
-  height: 210px;
-  transform: translate(-50%, -50%) rotate(-18deg);
-}
-
-.energy-node {
-  position: absolute;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 9px 13px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.11);
-  color: var(--color-text);
-  font-size: 0.95rem;
-  font-weight: 900;
+  justify-content: center;
 }
 
-.node-sun {
-  right: 18%;
-  top: 18%;
+.energy-img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(14, 165, 233, 0.18));
 }
 
-.node-water {
-  left: 12%;
-  top: 38%;
-}
-
-.node-wind {
-  right: 12%;
-  bottom: 28%;
-}
-
-.node-power {
-  left: 24%;
-  bottom: 14%;
-}
 
 /* Testimonials */
 .testimonials {
@@ -574,10 +498,6 @@
 
   .cta-buttons {
     flex-direction: column;
-  }
-
-  .energy-visual {
-    min-height: 320px;
   }
 
   .testimonial-content {

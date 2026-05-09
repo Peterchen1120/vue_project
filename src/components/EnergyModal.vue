@@ -39,6 +39,7 @@
 
             <div class="fact-box" v-if="energy.fact">
               <span>Did you know?</span>
+              <p class="fact-tagline">{{ energy.factTagline }}</p>
               <p>{{ energy.fact }}</p>
             </div>
 
@@ -61,7 +62,7 @@
                   : {}"
                 @click="activeInfoTab = 'report'"
               >
-                環境評估報告
+                數據分析
               </button>
             </div>
           </div>
@@ -80,11 +81,17 @@
           </section>
         </template>
 
-        <!-- 環境評估區塊 -->
-        <section v-if="activeInfoTab === 'report'" class="extra-section energy-modal-full-section">
-          <h3>環境評估報告</h3>
-          <p>這裡之後可以放數據圖表、發電比例、優缺點比較、台灣案例或互動式內容。</p>
-        </section>
+        <!-- 數據分析區塊 -->
+        <template v-if="activeInfoTab === 'report'">
+          <HydroDataAnalysis
+            v-if="energy.id === 'hydro'"
+            class="energy-modal-full-section"
+          />
+          <section v-else class="extra-section energy-modal-full-section">
+            <h3>數據分析（即將推出）</h3>
+            <p>這種能源類型的數據分析內容正在製作中，敬請期待。</p>
+          </section>
+        </template>
 
       </div>
     </article>
@@ -94,6 +101,7 @@
 <script setup>
 import { ref } from 'vue'
 import EnergyPrincipleSection from './energy/EnergyPrincipleSection.vue'
+import HydroDataAnalysis from './energy/HydroDataAnalysis.vue'
 
 defineProps({
   energy: {
@@ -272,22 +280,30 @@ function closeModal() {
 .fact-box {
   width: 100%;
   background: rgba(255, 255, 255, 0.82);
-  border-radius: 28px;
+  border-radius: 0 28px 28px 0;
   padding: 20px 24px;
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
   margin-bottom: 28px;
+  border-left: 4px solid rgba(180, 120, 40, 0.45);
 }
 .fact-box span {
   display: inline-block;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 900;
   color: #7c5c2e;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+.fact-box .fact-tagline {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #1f2937;
+  line-height: 1.4;
+  margin-bottom: 12px;
 }
 .fact-box p {
   color: #4b5563;
-  line-height: 1.7;
-  font-size: 0.92rem;
+  line-height: 1.95;
+  font-size: 0.95rem;
 }
 
 .modal-actions {
