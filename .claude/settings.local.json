@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\ZHENG\\\\OneDrive\\\\桌面\\\\網頁設計練習\\\\vueFolder\\\\vue-project\" -Recurse -Force)",
+      "Bash(Select-Object -ExpandProperty FullName)"
+    ]
+  }
+}
