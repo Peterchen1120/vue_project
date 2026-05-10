@@ -28,9 +28,7 @@
         </div>
 
         <div class="energy-visual" aria-hidden="true">
-          <div class="energy-img-frame">
-            <img class="energy-img" :src="energyImg" alt="再生能源示意圖" />
-          </div>
+          <img class="energy-img" :src="energyImg" alt="再生能源示意圖" />
         </div>
       </div>
     </section>
@@ -308,19 +306,12 @@
   justify-content: center;
 }
 
-.energy-img-frame {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 16px;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
-}
-
 .energy-img {
   width: 100%;
-  max-width: 320px;
+  max-width: 520px;
   height: auto;
   object-fit: contain;
-  display: block;
+  filter: drop-shadow(0 20px 40px rgba(14, 165, 233, 0.18));
 }
 
 
