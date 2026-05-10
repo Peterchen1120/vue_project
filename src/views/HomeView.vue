@@ -310,14 +310,14 @@
 
 .energy-img-frame {
   background: #ffffff;
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.1);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.1);
 }
 
 .energy-img {
   width: 100%;
-  max-width: 480px;
+  max-width: 320px;
   height: auto;
   object-fit: contain;
   display: block;
