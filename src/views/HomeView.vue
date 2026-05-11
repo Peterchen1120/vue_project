@@ -78,7 +78,7 @@
     <section class="pre-footer-banner">
       <!-- 你原本 30,000,000+ 人那塊搬來這裡 -->
         <h2><span>30,000,000+ 人</span>的教學平台</h2>
-        <p>Energy Pulse 是全亞洲最受歡迎的教平學台</p>
+        <p>Energy Pulse 是全亞洲最受歡迎的教學平台</p>
     </section>
   </main>
 </template>
