@@ -38,9 +38,11 @@
 <script setup>
 import PrincipleStepCard from './PrincipleStepCard.vue'
 import HydroPrincipleAnimation from './animations/HydroPrincipleAnimation.vue'
+import SolarPrincipleAnimation from './animations/SolarPrincipleAnimation.vue'
 
 const animationComponents = {
-  hydro: HydroPrincipleAnimation
+  hydro: HydroPrincipleAnimation,
+  solar: SolarPrincipleAnimation
 }
 
 defineProps({
