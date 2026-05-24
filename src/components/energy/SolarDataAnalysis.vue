@@ -126,30 +126,70 @@
           <div class="sol-card">
             <h4 class="sol-card-title">四個面向，理解太陽光電在台灣的真實處境</h4>
             <div class="sol-pros-cons">
+
               <div class="sol-trait-card sol-trait-card--pro">
-                <div class="sol-trait-tag sol-trait-tag--pro">優勢</div>
-                <div class="sol-trait-icon">☀️</div>
+                <div class="sol-trait-head">
+                  <span class="sol-trait-tag sol-trait-tag--pro">優勢</span>
+                  <div class="sol-trait-icon-wrap sol-icon--sun">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <circle cx="9" cy="9" r="3.2" fill="currentColor"/>
+                      <line x1="9" y1="1" x2="9" y2="3.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="9" y1="14.8" x2="9" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="1" y1="9" x2="3.2" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="14.8" y1="9" x2="17" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="3.05" y1="3.05" x2="4.65" y2="4.65" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="13.35" y1="13.35" x2="14.95" y2="14.95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="14.95" y1="3.05" x2="13.35" y2="4.65" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="4.65" y1="13.35" x2="3.05" y2="14.95" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
                 <div class="sol-trait-title">快速建置</div>
                 <p class="sol-trait-desc">太陽能設備模組化程度高，可設置於屋頂、停車棚與適當地面空間，較容易快速增加發電容量。</p>
               </div>
+
               <div class="sol-trait-card sol-trait-card--lim">
-                <div class="sol-trait-tag sol-trait-tag--lim">限制</div>
-                <div class="sol-trait-icon">🌥️</div>
+                <div class="sol-trait-head">
+                  <span class="sol-trait-tag sol-trait-tag--lim">限制</span>
+                  <div class="sol-trait-icon-wrap sol-icon--cloud">
+                    <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+                      <path d="M4.5 12C2.5 12 1 10.4 1 8.5c0-1.7 1.2-3.1 2.8-3.4C4.2 2.8 6.4 1 9 1a6 6 0 0 1 5.7 4c1.8.3 3.3 1.8 3.3 3.7 0 2-1.6 3.3-3.5 3.3H4.5z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
                 <div class="sol-trait-title">發電間歇性</div>
                 <p class="sol-trait-desc">太陽能受到日夜、雲層與降雨影響，無法全天穩定供電，因此需要儲能與電網調度配合。</p>
               </div>
-              <div class="sol-trait-card sol-trait-card--tw">
-                <div class="sol-trait-tag sol-trait-tag--tw">台灣挑戰</div>
-                <div class="sol-trait-icon">🏝️</div>
+
+              <div class="sol-trait-card sol-trait-card--tw sol-trait-card--earth">
+                <div class="sol-trait-head">
+                  <span class="sol-trait-tag sol-trait-tag--tw sol-trait-tag--earth">台灣挑戰</span>
+                  <div class="sol-trait-icon-wrap sol-icon--pin sol-icon--earth">
+                    <svg width="13" height="18" viewBox="0 0 13 18" fill="none">
+                      <path d="M6.5 0C3.19 0 .5 2.69.5 6c0 4.5 6 12 6 12s6-7.5 6-12c0-3.31-2.69-6-6-6z" fill="currentColor"/>
+                      <circle cx="6.5" cy="6" r="2" fill="white"/>
+                    </svg>
+                  </div>
+                </div>
                 <div class="sol-trait-title">土地使用壓力</div>
                 <p class="sol-trait-desc">台灣土地面積有限，大型地面型光電可能與農業、養殖、景觀或生態保護產生空間競爭。</p>
               </div>
+
               <div class="sol-trait-card sol-trait-card--tw">
-                <div class="sol-trait-tag sol-trait-tag--tw">台灣挑戰</div>
-                <div class="sol-trait-icon">🌀</div>
+                <div class="sol-trait-head">
+                  <span class="sol-trait-tag sol-trait-tag--tw">台灣挑戰</span>
+                  <div class="sol-trait-icon-wrap sol-icon--wind">
+                    <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+                      <path d="M1 3h9a2 2 0 1 0-2-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M1 7h11a3 3 0 1 1-3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <line x1="1" y1="11" x2="7" y2="11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
                 <div class="sol-trait-title">颱風與災害風險</div>
                 <p class="sol-trait-desc">台灣颱風與豪雨頻繁，光電設施必須考量耐風、排水、防災設計，以及受損後的清理與回收。</p>
               </div>
+
             </div>
             <p class="sol-card-desc">太陽能的優勢在於部署彈性與快速擴張，但台灣土地有限、天候變化明顯且颱風頻繁，因此太陽光電更適合作為能源組合中的重要主力之一，而非單獨承擔所有供電需求。</p>
             <p class="sol-source">
@@ -171,33 +211,66 @@
 
           <!-- 生命週期流程 -->
           <div class="sol-lifecycle">
+
             <div class="sol-lc-step sol-lc-step--mfg">
               <div class="sol-lc-num">01</div>
-              <div class="sol-lc-icon">⚙️</div>
+              <div class="sol-lc-icon-bg sol-lc-icon-bg--mfg">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <circle cx="11" cy="11" r="3" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M11 3v2M11 17v2M3 11h2M17 11h2M5.3 5.3l1.4 1.4M15.3 15.3l1.4 1.4M18.7 5.3l-1.4 1.4M7.7 15.3l-1.4 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+              </div>
               <div class="sol-lc-title">原料與製造</div>
               <p class="sol-lc-desc">矽晶材料、玻璃與鋁框的加工仍需要能源與資源投入。</p>
             </div>
+
             <div class="sol-lc-arrow" aria-hidden="true">→</div>
+
             <div class="sol-lc-step sol-lc-step--gen">
               <div class="sol-lc-num">02</div>
-              <div class="sol-lc-icon">☀️</div>
+              <div class="sol-lc-icon-bg sol-lc-icon-bg--gen">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <circle cx="11" cy="9" r="3.2" fill="currentColor" opacity="0.9"/>
+                  <path d="M11 2v1.5M11 14.5v1M3.5 9H5M17 9h1.5M5.4 4.4l1.1 1.1M15.5 14.5l1 1M18.6 4.4l-1.1 1.1M6.5 14.5l-1 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                  <rect x="5" y="17.5" width="12" height="2.5" rx="1" stroke="currentColor" stroke-width="1.6" fill="none"/>
+                  <line x1="11" y1="14.5" x2="11" y2="17.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </div>
               <div class="sol-lc-title">安裝與發電</div>
               <p class="sol-lc-desc">運轉時不需燃燒燃料，直接空氣污染與碳排相對低。</p>
             </div>
+
             <div class="sol-lc-arrow" aria-hidden="true">→</div>
+
             <div class="sol-lc-step sol-lc-step--dmg">
               <div class="sol-lc-num">03</div>
-              <div class="sol-lc-icon">🌀</div>
+              <div class="sol-lc-icon-bg sol-lc-icon-bg--dmg">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none">
+                  <path d="M11 1L1 19h20L11 1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <line x1="11" y1="8" x2="11" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <circle cx="11" cy="15.8" r="1" fill="currentColor"/>
+                </svg>
+              </div>
               <div class="sol-lc-title">災害受損</div>
               <p class="sol-lc-desc">颱風與豪雨可能造成模組破裂、散落，增加清理與監測需求。</p>
             </div>
+
             <div class="sol-lc-arrow" aria-hidden="true">→</div>
+
             <div class="sol-lc-step sol-lc-step--rec">
               <div class="sol-lc-num">04</div>
-              <div class="sol-lc-icon">♻️</div>
+              <div class="sol-lc-icon-bg sol-lc-icon-bg--rec">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path d="M18 10C17 5.5 13.3 2 9 2c-3.3 0-6 2-7.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M4 11C5 15.5 8.7 19 13 19c3.3 0 6-2 7.5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M1.5 7l-1 4 4-1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M20.5 15l1-4-4 1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
               <div class="sol-lc-title">報廢回收</div>
               <p class="sol-lc-desc">模組汰役後需要拆解與資源化處理，否則可能形成廢棄物管理壓力。</p>
             </div>
+
           </div>
 
           <!-- 下半部左右分欄 -->
@@ -206,6 +279,13 @@
               <h4 class="sol-lc-sub-title">太陽能真的完全零污染嗎？</h4>
               <p class="sol-card-desc" style="margin-top:0">太陽能板在發電過程中不需燃燒燃料，因此具備低碳與低空氣污染的優勢。然而，從原料取得、模組製造，到設備受損或使用年限結束後的拆解回收，仍然涉及能源消耗、材料使用與廢棄物處理問題。</p>
               <div class="sol-conclusion-box">
+                <span class="sol-conclusion-icon" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                    <line x1="8" y1="5" x2="8" y2="9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    <circle cx="8" cy="11.5" r="0.8" fill="currentColor"/>
+                  </svg>
+                </span>
                 太陽能的環境代價，主要集中在製造前端與報廢後端，而不是日常發電階段。
               </div>
             </div>
@@ -217,7 +297,7 @@
                 <li>若缺乏完善的回收制度，今天的綠能建設可能成為未來的廢棄物管理壓力。</li>
               </ul>
               <div class="sol-final-quote">
-                真正永續的太陽能，不只要能發電，也要能被妥善回收。
+                真正永續的太陽能，<br>不只要能發電，也要能被妥善回收。
               </div>
             </div>
           </div>
@@ -483,7 +563,7 @@ function initMixBarChart() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      animation: { duration: 1400, easing: 'easeOutQuart' },
+      animation: false,
       scales: {
         y: {
           beginAtZero: true, max: 50,
@@ -805,58 +885,97 @@ onBeforeUnmount(() => {
 }
 
 .sol-trait-card {
-  border-radius: 14px;
-  padding: 16px 14px;
+  border-radius: 16px;
+  padding: 16px 16px 18px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.sol-trait-card:hover {
+  transform: translateY(-2px);
 }
 
 .sol-trait-card--pro {
-  background: rgba(254, 243, 199, 0.65);
-  border: 1px solid rgba(251, 191, 36, 0.28);
+  background: linear-gradient(145deg, rgba(254,249,195,.85) 0%, rgba(254,243,199,.92) 100%);
+  border: 1px solid rgba(251,191,36,.28);
+  box-shadow: 0 3px 12px rgba(251,191,36,.12);
 }
 
 .sol-trait-card--lim {
-  background: rgba(255, 237, 213, 0.65);
-  border: 1px solid rgba(249, 115, 22, 0.22);
+  background: linear-gradient(145deg, rgba(255,237,213,.85) 0%, rgba(254,215,170,.65) 100%);
+  border: 1px solid rgba(249,115,22,.2);
+  box-shadow: 0 3px 12px rgba(249,115,22,.09);
 }
 
 .sol-trait-card--tw {
-  background: rgba(241, 245, 249, 0.65);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: linear-gradient(145deg, rgba(219,234,254,.78) 0%, rgba(191,219,254,.58) 100%);
+  border: 1px solid rgba(59,130,246,.2);
+  box-shadow: 0 3px 12px rgba(59,130,246,.1);
+}
+
+/* tag + icon 並排同一行 */
+.sol-trait-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .sol-trait-tag {
   display: inline-flex;
   align-items: center;
   height: 22px;
-  padding: 0 8px;
+  padding: 0 9px;
   border-radius: 999px;
   font-size: 0.7rem;
   font-weight: 900;
-  margin-bottom: 8px;
   white-space: nowrap;
+  letter-spacing: 0.3px;
 }
 
-.sol-trait-tag--pro { background: #fef3c7; color: #92400e; }
-.sol-trait-tag--lim { background: #ffedd5; color: #9a3412; }
-.sol-trait-tag--tw  { background: #f1f5f9; color: #475569; }
+.sol-trait-tag--pro { background: rgba(254,243,199,1); color: #92400e; border: 1px solid rgba(251,191,36,.35); }
+.sol-trait-tag--lim { background: rgba(255,237,213,1); color: #9a3412; border: 1px solid rgba(249,115,22,.3); }
+.sol-trait-tag--tw  { background: rgba(219,234,254,1); color: #1d4ed8; border: 1px solid rgba(59,130,246,.28); }
 
-.sol-trait-icon {
-  font-size: 1.4rem;
-  margin-bottom: 6px;
-  display: block;
+.sol-trait-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sol-icon--sun   { background: rgba(251,191,36,.18); color: #d97706; }
+.sol-icon--cloud { background: rgba(249,115,22,.14); color: #ea580c; }
+.sol-icon--pin   { background: rgba(59,130,246,.14); color: #2563eb; }
+.sol-icon--wind  { background: rgba(59,130,246,.14); color: #2563eb; }
+.sol-icon--earth { background: rgba(180,110,50,.15); color: #92400e; }
+
+/* 土地限制 - 咖啡大地色系 */
+.sol-trait-card--earth {
+  background: linear-gradient(145deg, rgba(253,236,215,.85) 0%, rgba(239,210,175,.65) 100%);
+  border: 1px solid rgba(180,110,50,.22);
+  box-shadow: 0 3px 12px rgba(160,90,30,.1);
+}
+.sol-trait-tag--earth {
+  background: rgba(253,236,215,1);
+  color: #78350f;
+  border: 1px solid rgba(180,110,50,.3);
 }
 
 .sol-trait-title {
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 900;
   color: #1e3a5f;
-  margin-bottom: 6px;
+  margin-bottom: 7px;
+  letter-spacing: -0.1px;
 }
 
 .sol-trait-desc {
   font-size: 0.82rem;
   color: #4b5563;
-  line-height: 1.65;
+  line-height: 1.7;
   margin: 0;
 }
 
@@ -867,52 +986,81 @@ onBeforeUnmount(() => {
   gap: 4px;
   margin: 24px 0 20px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-top: 6px;    /* hover 上浮時不被裁切 */
+  padding-bottom: 6px;
 }
 
 .sol-lc-step {
   flex: 1;
   min-width: 130px;
-  padding: 18px 14px;
-  border-radius: 16px;
+  padding: 20px 14px 18px;
+  border-radius: 18px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.sol-lc-step--mfg { background: rgba(255, 237, 213, 0.72); border: 1px solid rgba(249,115,22,0.2); }
-.sol-lc-step--gen { background: rgba(254, 249, 195, 0.72); border: 1px solid rgba(234,179,8,0.2); }
-.sol-lc-step--dmg { background: rgba(241, 245, 249, 0.72); border: 1px solid rgba(148,163,184,0.25); }
-.sol-lc-step--rec { background: rgba(255, 237, 213, 0.55); border: 1px solid rgba(249,115,22,0.16); }
+.sol-lc-step:hover { transform: translateY(-3px); }
+
+.sol-lc-step--mfg {
+  background: linear-gradient(160deg, rgba(255,237,213,.85), rgba(254,215,170,.6));
+  border: 1px solid rgba(249,115,22,.2);
+  box-shadow: 0 4px 14px rgba(249,115,22,.08);
+}
+.sol-lc-step--gen {
+  background: linear-gradient(160deg, rgba(254,252,232,.9), rgba(254,249,195,.85));
+  border: 1px solid rgba(234,179,8,.22);
+  box-shadow: 0 4px 14px rgba(234,179,8,.12);
+}
+.sol-lc-step--dmg {
+  background: linear-gradient(160deg, #f8fafc, rgba(241,245,249,.9));
+  border: 1px solid rgba(148,163,184,.25);
+  box-shadow: 0 4px 14px rgba(15,23,42,.06);
+}
+.sol-lc-step--rec {
+  background: linear-gradient(160deg, rgba(240,253,244,.9), rgba(220,252,231,.7));
+  border: 1px solid rgba(34,197,94,.2);
+  box-shadow: 0 4px 14px rgba(34,197,94,.08);
+}
 
 .sol-lc-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 6px;
-  font-size: 1.1rem;
+  padding: 0 4px;
+  font-size: 1rem;
   color: #cbd5e1;
   flex-shrink: 0;
   align-self: center;
 }
 
 .sol-lc-num {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 900;
   color: #94a3b8;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
 }
 
-.sol-lc-icon {
-  font-size: 1.6rem;
-  margin-bottom: 8px;
-  line-height: 1;
+/* SVG icon 圓圈（取代 emoji） */
+.sol-lc-icon-bg {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
 }
+.sol-lc-icon-bg--mfg { background: rgba(249,115,22,.15); color: #ea580c; }
+.sol-lc-icon-bg--gen { background: rgba(251,191,36,.2);  color: #d97706; }
+.sol-lc-icon-bg--dmg { background: rgba(100,116,139,.14); color: #475569; }
+.sol-lc-icon-bg--rec { background: rgba(34,197,94,.18);  color: #16a34a; }
 
 .sol-lc-title {
-  font-size: 0.9rem;
+  font-size: 0.91rem;
   font-weight: 900;
   color: #1e3a5f;
   margin-bottom: 8px;
@@ -921,7 +1069,7 @@ onBeforeUnmount(() => {
 .sol-lc-desc {
   font-size: 0.8rem;
   color: #4b5563;
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
 }
 
@@ -929,9 +1077,9 @@ onBeforeUnmount(() => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  margin-top: 22px;
-  padding-top: 22px;
-  border-top: 1px solid rgba(15, 23, 42, 0.07);
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(15,23,42,.07);
 }
 
 .sol-lc-sub-title {
@@ -943,55 +1091,94 @@ onBeforeUnmount(() => {
 
 .sol-conclusion-box {
   margin-top: 16px;
-  padding: 14px 18px;
+  padding: 14px 16px 14px 20px;
   border-radius: 12px;
-  background: rgba(254, 243, 199, 0.75);
+  background: rgba(254,243,199,.8);
   border-left: 4px solid #fbbf24;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: #92400e;
-  line-height: 1.65;
+  line-height: 1.7;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.sol-conclusion-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #d97706;
 }
 
 .sol-lc-bullets {
   list-style: none;
   padding: 0;
-  margin: 0 0 18px;
+  margin: 0 0 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 .sol-lc-bullets li {
-  font-size: 0.88rem;
-  color: #475569;
-  line-height: 1.65;
-  padding-left: 16px;
+  font-size: 0.87rem;
+  color: #374151;
+  line-height: 1.72;
+  padding: 13px 16px 13px 20px;
   position: relative;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  border-left: 4px solid #fbbf24;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+  backdrop-filter: blur(4px);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.sol-lc-bullets li:hover {
+  transform: translateX(3px);
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.18);
 }
 
 .sol-lc-bullets li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 9px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #f59e0b;
+  display: none;
 }
 
 .sol-final-quote {
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: rgba(15, 23, 42, 0.04);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #374151;
-  line-height: 1.7;
+  position: relative;
+  padding: 26px 28px 24px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(254,249,195,0.95) 0%, rgba(253,230,138,0.82) 50%, rgba(254,243,199,0.95) 100%);
+  border: 1.5px solid rgba(251,191,36,.48);
+  box-shadow: 0 10px 32px rgba(251,191,36,.18), 0 2px 8px rgba(15,23,42,.05);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #78350f;
+  line-height: 1.85;
   text-align: center;
-  font-style: italic;
+  overflow: hidden;
+}
+
+.sol-final-quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -14px;
+  left: 16px;
+  font-size: 5.5rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: rgba(251, 191, 36, 0.22);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.sol-final-quote::after {
+  content: '\201D';
+  position: absolute;
+  bottom: -40px;
+  right: 16px;
+  font-size: 5.5rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: rgba(251, 191, 36, 0.22);
+  line-height: 1;
+  pointer-events: none;
 }
 
 /* ═══ 資料來源 ════════════════════════════════════════════ */

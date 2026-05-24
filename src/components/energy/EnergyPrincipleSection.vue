@@ -39,10 +39,14 @@
 import PrincipleStepCard from './PrincipleStepCard.vue'
 import HydroPrincipleAnimation from './animations/HydroPrincipleAnimation.vue'
 import SolarPrincipleAnimation from './animations/SolarPrincipleAnimation.vue'
+import WindPrincipleAnimation from './animations/WindPrincipleAnimation.vue'
+import BiomassPrincipleAnimation from './animations/BiomassPrincipleAnimation.vue'
 
 const animationComponents = {
-  hydro: HydroPrincipleAnimation,
-  solar: SolarPrincipleAnimation
+  hydro:   HydroPrincipleAnimation,
+  solar:   SolarPrincipleAnimation,
+  wind:    WindPrincipleAnimation,
+  biomass: BiomassPrincipleAnimation,
 }
 
 defineProps({
