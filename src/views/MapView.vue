@@ -18,11 +18,22 @@
 
         <div class="energy-buttons">
           <button class="energy-btn hydro-btn" @click="openModal('hydro')">
-            水力發電
+            💧 水力發電
           </button>
-
           <button class="energy-btn solar-btn" @click="openModal('solar')">
-            太陽能發電
+            ☀️ 太陽能發電
+          </button>
+          <button class="energy-btn wind-btn" @click="openModal('wind')">
+            🌬 風力發電
+          </button>
+          <button class="energy-btn biomass-btn" @click="openModal('biomass')">
+            🌿 生質能發電
+          </button>
+          <button class="energy-btn geo-btn" @click="openModal('geo')">
+            🌋 地熱發電
+          </button>
+          <button class="energy-btn nuclear-btn" @click="openModal('nuclear')">
+            ⚛️ 核能發電
           </button>
         </div>
       </div>
@@ -179,9 +190,40 @@ function closeModal() {
   color: #3f2d00;
   box-shadow: 0 10px 24px rgba(245, 158, 11, 0.28);
 }
-
 .solar-btn:hover {
   box-shadow: 0 18px 36px rgba(245, 158, 11, 0.36);
+}
+
+.wind-btn {
+  background: linear-gradient(135deg, #7eb8f5, #2563a8);
+  box-shadow: 0 10px 24px rgba(37, 99, 168, 0.26);
+}
+.wind-btn:hover {
+  box-shadow: 0 18px 36px rgba(37, 99, 168, 0.36);
+}
+
+.biomass-btn {
+  background: linear-gradient(135deg, #52c47a, #1f7a46);
+  box-shadow: 0 10px 24px rgba(31, 122, 70, 0.26);
+}
+.biomass-btn:hover {
+  box-shadow: 0 18px 36px rgba(31, 122, 70, 0.36);
+}
+
+.geo-btn {
+  background: linear-gradient(135deg, #f07a52, #c0401a);
+  box-shadow: 0 10px 24px rgba(192, 64, 26, 0.26);
+}
+.geo-btn:hover {
+  box-shadow: 0 18px 36px rgba(192, 64, 26, 0.36);
+}
+
+.nuclear-btn {
+  background: linear-gradient(135deg, #b07de8, #6428b4);
+  box-shadow: 0 10px 24px rgba(100, 40, 180, 0.26);
+}
+.nuclear-btn:hover {
+  box-shadow: 0 18px 36px rgba(100, 40, 180, 0.36);
 }
 
 @media (max-width: 768px) {

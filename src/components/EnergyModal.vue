@@ -91,6 +91,14 @@
             v-else-if="energy.id === 'solar'"
             class="energy-modal-full-section"
           />
+          <WindDataAnalysis
+            v-else-if="energy.id === 'wind'"
+            class="energy-modal-full-section"
+          />
+          <BiomassDataAnalysis
+            v-else-if="energy.id === 'biomass'"
+            class="energy-modal-full-section"
+          />
           <section v-else class="extra-section energy-modal-full-section">
             <h3>數據分析（即將推出）</h3>
             <p>這種能源類型的數據分析內容正在製作中，敬請期待。</p>
@@ -107,6 +115,8 @@ import { ref } from 'vue'
 import EnergyPrincipleSection from './energy/EnergyPrincipleSection.vue'
 import HydroDataAnalysis from './energy/HydroDataAnalysis.vue'
 import SolarDataAnalysis from './energy/SolarDataAnalysis.vue'
+import WindDataAnalysis from './energy/WindDataAnalysis.vue'
+import BiomassDataAnalysis from './energy/BiomassDataAnalysis.vue'
 
 defineProps({
   energy: {
