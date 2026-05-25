@@ -4,10 +4,10 @@
       <div class="hero-container">
         <div class="hero-copy">
           <p class="hero-label">SDG 7 Clean Energy</p>
-          <h1 class="main-title">Energy Pulse｜能源脈動</h1>
-          <p class="hero-subtitle">看見能源如何流動，理解未來如何發電。</p>
+          <h1 class="main-title">能源魔法島</h1>
+          <p class="hero-subtitle">探索能量轉換的祕密，拉近我們與永續的距離。</p>
           <p class="hero-description">
-            從太陽、水流與風開始，探索潔淨能源如何影響我們的生活。
+            讓純淨的電力，守護這片土地。
           </p>
 
           <div class="cta-card">
@@ -49,6 +49,7 @@
                 :src="currentTestimonial.avatar"
                 :alt="currentTestimonial.name"
                 class="avatar"
+                :style="currentTestimonial.avatarStyle"
               />
 
               <div class="text-content">
@@ -78,7 +79,7 @@
     <section class="pre-footer-banner">
       <!-- 你原本 30,000,000+ 人那塊搬來這裡 -->
         <h2><span>30,000,000+ 人</span>的教學平台</h2>
-        <p>Energy Pulse 是全亞洲最受歡迎的教學平台</p>
+        <p>まほおのしま是全亞洲最受歡迎的教學平台</p>
     </section>
   </main>
 </template>
@@ -90,37 +91,38 @@
 
     const testimonials = [
     {
-        avatar: 'https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png',
+        avatar: 'https://images.steamusercontent.com/ugc/12249312569041002301/57650E72590166C4C195894B8A3946A488CD8B7F/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true',
+        avatarStyle: { borderRadius: '50%', objectFit: 'cover' },
         content:
         '老實說，比起看影片，我真的更喜歡這種網頁式的呈現方式。最推的一點是它的排版。以前看一些教學網站，字縮在一起真的會看到眼花，但這個網站的資訊密度抓得蠻剛好的，還有許多圖表，對我這種喜歡快速掃過、抓重點的人來說，效率快超多。大推能源魔法島。',
         name: '中央大學 / 王同學'
     },
     {
-        avatar: 'https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwD65o3llUdrFfXMSvjpEkHtxxyz6wOwJF7Q&s',
         content:
         '我覺得這個網站比單純看文字教材更有趣，尤其是用互動的方式介紹能源議題，讓 SDG 7 變得比較好理解。',
-        name: '中央大學 / 李同學'
+        name: '中央大學 / 施同學'
     },
     {
-        avatar: 'https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeF5cLAFekoxj04BpAUNhd64pPN9e0B5pO4Q&s',
         content:
         '以前看到永續能源會覺得很遙遠，但這個網站用很簡單的方式整理重點，讓我比較知道再生能源和生活的關係。',
         name: '中央大學 / 陳同學'
     },
     {
-        avatar: 'https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png',
+        avatar: 'https://p3-pc-sign.douyinpic.com/tos-cn-i-0813c000-ce/o0EAki0LlCAHElBPIfSDAnAwiKv2ws7BsB8Aeg~tplv-dy-aweme-images:q75.webp?biz_tag=aweme_images&from=327834062&lk3s=138a59ce&s=PackSourceEnum_SEARCH&sc=image&se=false&x-expires=1781107200&x-signature=0ggApTyBJk05pPFve%2Fc17z64ctU%3D',
         content:
         '測驗功能蠻有趣的，答題過程也不會太死板，比較像在闖關。',
         name: '中央大學 / 林同學'
     },
     {
-        avatar: 'https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnuKbSQDsFvTUHeuOabRsDBYLm9E9Jolf3_Q&s',
         content:
         '整體視覺很清楚，綠色系也很符合能源和永續的主題。對學生來說，這種介面比較願意繼續看下去。',
         name: '中央大學 / 張同學'
     },
     {
-        avatar: 'https://images.icon-icons.com/3708/PNG/512/man_person_people_avatar_icon_230017.png',
+        avatar: 'https://static.popdaily.com.tw/wp-content/uploads/2021/04/c0a55e9fnzsw0ok0kwckcw4scqr6b27.jpg',
         content:
         '我喜歡它把資料來源和學習內容分開整理，查資料的時候比較不會混亂。',
         name: '中央大學 / 黃同學'
@@ -132,7 +134,7 @@
         name: '中央大學 / 賴同學'
     },
     {
-        avatar: 'https://cdn-icons-png.freepik.com/512/6813/6813438.png',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVIuE4R76-ZrwTgbTqcH1qT2zrNI3gRps68w&s',
         content:
         '最推的一點是它的島嶼導覽，每一座島代表一種能源，點擊後會彈出浮動視窗介紹。互動測驗題目感覺是隨機挑選的，很有新鮮感，點完之後可以馬上知道答案。',
         name: '中央大學 / 田同學'

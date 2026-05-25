@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import MapView from '../views/MapView.vue'
 import QuizView from '../views/QuizView.vue'
 import Sdg7 from '../views/Sdg7.vue'
+import NewsView from '../views/NewsView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/sdg7',
       name: 'sdg7',
       component: Sdg7
+    },
+    {
+      path: '/news',
+      name: 'news',
+      component: NewsView
     }
   ]
 })
