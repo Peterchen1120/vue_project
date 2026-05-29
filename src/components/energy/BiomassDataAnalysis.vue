@@ -263,9 +263,9 @@
               </div>
 
             </div>
-            <div class="bio-final-quote">
-              生質能的發展潛力，<br>不在於大幅擴張，<br>而在於精準結合農業廢棄物管理，<br>讓每一度電都更具資源意義。
-            </div>
+            <p class="bio-final-note">
+              生質能的發展潛力，不在於大幅擴張，而在於精準結合農業廢棄物管理，讓每一度電都更具資源意義。
+            </p>
             <p class="bio-source">
               資料來源：
               <a href="https://www.moenv.gov.tw/" target="_blank" rel="noopener noreferrer">環境部，台灣溫室氣體排放統計</a>；
@@ -962,45 +962,17 @@ onBeforeUnmount(() => {
   font-weight: 900;
 }
 
-/* ═══ 最終引言框 ══════════════════════════════════════════ */
-.bio-final-quote {
-  position: relative;
-  padding: 26px 28px 24px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(240,253,244,0.95), rgba(187,247,208,0.82) 50%, rgba(220,252,231,0.95));
-  border: 1.5px solid rgba(34,197,94,.42);
-  box-shadow: 0 10px 32px rgba(34,197,94,.15), 0 2px 8px rgba(15,23,42,.05);
-  font-size: 1rem;
-  font-weight: 800;
+/* ═══ 最終備註 ══════════════════════════════════════════ */
+.bio-final-note {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 3px solid #22c55e;
+  font-size: 0.88rem;
+  font-weight: 700;
   color: #14532d;
-  line-height: 1.9;
-  text-align: center;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.bio-final-quote::before {
-  content: '\201C';
-  position: absolute;
-  top: -14px;
-  left: 16px;
-  font-size: 5.5rem;
-  font-family: Georgia, 'Times New Roman', serif;
-  color: rgba(34, 197, 94, 0.18);
-  line-height: 1;
-  pointer-events: none;
-}
-
-.bio-final-quote::after {
-  content: '\201D';
-  position: absolute;
-  bottom: -40px;
-  right: 16px;
-  font-size: 5.5rem;
-  font-family: Georgia, 'Times New Roman', serif;
-  color: rgba(34, 197, 94, 0.18);
-  line-height: 1;
-  pointer-events: none;
+  line-height: 1.75;
+  background: rgba(240,253,244,0.5);
+  border-radius: 0 8px 8px 0;
 }
 
 /* ═══ 響應式 ══════════════════════════════════════════════ */

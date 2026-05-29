@@ -1,5 +1,10 @@
 <script setup>
 import transmissionTower from '@/assets/energy/transmission-tower.svg'
+
+const biomassFireFrames = Array.from(
+  { length: 18 },
+  (_, index) => `/fire_generated_frames/fire_${String(index).padStart(2, '0')}.png`,
+)
 </script>
 
 <template>
@@ -44,25 +49,32 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
       <!-- ② 蒸汽鍋爐 -->
       <div class="bio-node">
         <div class="bio-badge bio-badge-amber">熱能</div>
-        <div class="bio-boiler">
-          <!-- 鍋爐主體 -->
+        <div class="bio-boiler-wrap">
           <div class="bio-boiler-body">
-            <!-- 火焰 -->
+            <div class="bio-boiler-glow"></div>
+            <div class="bio-boiler-pipe-top"></div>
+            <div class="bio-smoke" aria-hidden="true">
+              <span class="bio-smoke-wisp" style="--si:0"></span>
+              <span class="bio-smoke-wisp" style="--si:1"></span>
+              <span class="bio-smoke-wisp" style="--si:2"></span>
+            </div>
             <div class="bio-flames" aria-hidden="true">
-              <span class="bio-flame bio-flame--l" style="--fd:0s"></span>
-              <span class="bio-flame bio-flame--c" style="--fd:.3s"></span>
-              <span class="bio-flame bio-flame--r" style="--fd:.6s"></span>
+              <img
+                v-for="(frame, index) in biomassFireFrames"
+                :key="frame"
+                :src="frame"
+                alt=""
+                class="bio-fire-frame"
+                :style="`--frame:${index}`"
+                aria-hidden="true"
+              />
             </div>
-            <!-- 鍋爐壁 -->
-            <div class="bio-boiler-wall">
-              <span class="bio-outlet-dot bio-boiler-outlet"></span>
+            <div class="bio-fuel-bed" aria-hidden="true">
+              <span class="bio-fuel-chip bio-fuel-chip--a"></span>
+              <span class="bio-fuel-chip bio-fuel-chip--b"></span>
+              <span class="bio-fuel-chip bio-fuel-chip--c"></span>
+              <span class="bio-fuel-chip bio-fuel-chip--d"></span>
             </div>
-          </div>
-          <!-- 蒸汽出口 -->
-          <div class="bio-steam-vents" aria-hidden="true">
-            <span class="bio-steam-puff" style="--sp:0s;  --sx:-6px"></span>
-            <span class="bio-steam-puff" style="--sp:.5s; --sx:2px"></span>
-            <span class="bio-steam-puff" style="--sp:1s;  --sx:8px"></span>
           </div>
         </div>
         <p class="bio-lbl">蒸汽鍋爐</p>
@@ -110,8 +122,8 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
         <div class="bio-shaft-wrap">
           <div class="bio-shaft-track">
             <span class="bio-sdot" style="--sd:0s"></span>
-            <span class="bio-sdot" style="--sd:.45s"></span>
-            <span class="bio-sdot" style="--sd:.9s"></span>
+            <span class="bio-sdot" style="--sd:.55s"></span>
+            <span class="bio-sdot" style="--sd:1.1s"></span>
           </div>
           <span class="bio-conn-lbl">傳動軸</span>
         </div>
@@ -332,65 +344,55 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
 .bio-fflow { animation: bio-fdash .85s linear infinite; }
 
 /* ═══ ② BOILER ══════════════════════════════════════ */
-.bio-boiler {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.bio-boiler-wrap {
   position: relative;
+  width: 96px;
 }
 
 .bio-boiler-body {
   width: 96px;
   height: 116px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, #292524 0%, #44403c 60%, #57534e 100%);
-  border: 2px solid rgba(120,113,108,.5);
-  box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 18px 36px rgba(120,60,10,.22);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #1e1712 0%, #2c2016 50%, #3a2a18 100%);
+  border: 1.5px solid rgba(180,100,30,.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 0 28px rgba(234,88,12,.15),
+    0 0 0 1px rgba(0,0,0,.18),
+    0 18px 36px rgba(100,40,10,.28);
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: flex-end;
 }
 
-/* 火焰區域在鍋爐底部 */
-.bio-flames {
+.bio-boiler-glow {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 56px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 4px;
-  padding: 0 10px 4px;
-  overflow: hidden;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 90%, rgba(249,115,22,.32) 0%, rgba(251,191,36,.1) 45%, transparent 70%);
+  pointer-events: none;
+  animation: bio-glow-pulse 0.9s ease-in-out infinite alternate;
 }
 
-.bio-flame {
-  display: block;
-  border-radius: 50% 50% 30% 30%;
-  animation: bio-flame-flicker 0.8s ease-in-out infinite alternate;
-  animation-delay: var(--fd);
-  transform-origin: bottom center;
-}
-.bio-flame--l { width: 14px; height: 32px; background: linear-gradient(180deg, #fde047 0%, #f97316 55%, #dc2626 100%); }
-.bio-flame--c { width: 18px; height: 44px; background: linear-gradient(180deg, #fef08a 0%, #fbbf24 40%, #f97316 80%, #ea580c 100%); }
-.bio-flame--r { width: 14px; height: 28px; background: linear-gradient(180deg, #fde047 0%, #f97316 55%, #dc2626 100%); }
-
-/* 鍋爐上半：金屬壁 */
-.bio-boiler-wall {
-  flex: 1;
-  position: relative;
-  display: flex;
-  align-items: center;
+.bio-boiler-pipe-top {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 7px;
+  border-radius: 4px 4px 0 0;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-bottom: none;
 }
 
-/* 出水/蒸汽連接點 */
+/* 出水/蒸汽連接點 — 放在 bio-boiler-wrap 上，不受 overflow:hidden 影響 */
 .bio-outlet-dot {
   position: absolute;
-  right: -10px;
+  right: -22px;
   top: 50%;
   transform: translateY(-50%);
   width: 18px;
@@ -400,36 +402,118 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   border: 3px solid #fff;
   box-shadow: 0 0 0 3px rgba(6,182,212,.3), 0 0 14px rgba(6,182,212,.55);
   animation: bio-outlet-pulse 2s ease-in-out infinite;
-  z-index: 2;
+  z-index: 3;
   display: block;
 }
 
-/* 蒸汽從頂部冒出 */
-.bio-steam-vents {
-  position: relative;
-  height: 24px;
-  width: 96px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  pointer-events: none;
-  margin-top: 4px;
-}
-.bio-steam-puff {
+/* 火焰 */
+.bio-flames {
   position: absolute;
-  top: 0;
   left: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(148,163,184,.5);
-  transform: translateX(var(--sx));
-  animation: bio-steam-rise 1.5s ease-out infinite;
-  animation-delay: var(--sp);
+  bottom: 21px;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 56px;
+  height: 58px;
+  pointer-events: none;
+}
+
+.bio-flame {
   display: block;
+  /* 尖頂寬底的火焰輪廓 */
+  clip-path: polygon(50% 0%, 65% 16%, 86% 44%, 78% 78%, 62% 96%, 50% 100%, 38% 96%, 22% 78%, 14% 44%, 35% 16%);
+  transform-origin: bottom center;
+  will-change: transform, opacity;
+}
+.bio-flame--l {
+  width: 22px; height: 36px;
+  /* 底部亮白黃→頂部暗紅 */
+  background: linear-gradient(to top, #fff7ed 0%, #fef08a 18%, #f59e0b 50%, #ea580c 80%, #9a3412 100%);
+  animation: bio-flicker-l 0.54s ease-in-out infinite;
+}
+.bio-flame--c {
+  width: 28px; height: 54px;
+  background: linear-gradient(to top, #ffffff 0%, #fef9c3 12%, #fbbf24 38%, #f97316 66%, #b91c1c 100%);
+  animation: bio-flicker-c 0.41s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(251,191,36,.7));
+}
+.bio-flame--r {
+  width: 20px; height: 32px;
+  background: linear-gradient(to top, #fff7ed 0%, #fef08a 18%, #f59e0b 50%, #ea580c 80%, #9a3412 100%);
+  animation: bio-flicker-r 0.67s ease-in-out infinite;
 }
 
 /* ═══ STEAM PIPE ═════════════════════════════════════  */
+.bio-fire-frame {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  opacity: 0;
+  filter: drop-shadow(0 0 5px rgba(251,191,36,.65));
+  animation: bio-fire-frame-cycle 2.97s steps(1, end) infinite;
+  animation-delay: calc(var(--frame) * -165ms);
+}
+
+.bio-fuel-bed {
+  position: absolute;
+  left: 50%;
+  bottom: 13px;
+  z-index: 2;
+  width: 62px;
+  height: 17px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(ellipse at 50% 70%, rgba(245,158,11,.34), rgba(120,53,15,.16) 58%, transparent 72%);
+  pointer-events: none;
+}
+
+.bio-fuel-chip {
+  position: absolute;
+  bottom: 4px;
+  display: block;
+  width: 18px;
+  height: 8px;
+  border-radius: 5px 3px 5px 3px;
+  background: linear-gradient(180deg, #8a4b22, #4a2411);
+  border: 1px solid rgba(251,191,36,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 0 7px rgba(245,158,11,.18);
+}
+
+.bio-fuel-chip--a { left: 7px; transform: rotate(-12deg); }
+.bio-fuel-chip--b { left: 20px; width: 22px; transform: rotate(5deg); }
+.bio-fuel-chip--c { right: 8px; transform: rotate(14deg); }
+.bio-fuel-chip--d { left: 30px; bottom: 9px; width: 14px; opacity: .82; transform: rotate(-7deg); }
+
+.bio-smoke {
+  position: absolute;
+  left: 50%;
+  bottom: 58px;
+  z-index: 1;
+  width: 54px;
+  height: 46px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.bio-smoke-wisp {
+  position: absolute;
+  bottom: 0;
+  left: calc(16px + var(--si) * 10px);
+  display: block;
+  width: 11px;
+  height: 28px;
+  border-radius: 999px;
+  border-left: 2px solid rgba(226,232,240,.18);
+  filter: blur(.2px);
+  opacity: 0;
+  animation: bio-smoke-rise 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--si) * .42s);
+}
+
 .bio-steam-wrap {
   width: 100%;
   display: flex;
@@ -470,7 +554,7 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   background: #67e8f9;
   border: 3px solid #fff;
   box-shadow: 0 0 0 3px rgba(103,232,249,.25), 0 0 10px rgba(103,232,249,.5);
-  z-index: 3;
+  z-index: 5;
   display: block;
 }
 .bio-turbine-inlet  { left:  -8px; }
@@ -517,13 +601,20 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 .bio-shaft-track {
   position: relative;
-  width: 100%;
-  height: 10px;
+  width: calc(100% + 20px);
+  height: 12px;
+  margin-left: -10px;
+  margin-right: -10px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #cbd5e1, #94a3b8, #cbd5e1);
+  background: linear-gradient(90deg, #cbd5e1 0%, #94a3b8 46%, #cbd5e1 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.52),
+    0 5px 12px rgba(15,23,42,.1);
   overflow: hidden;
 }
 .bio-sdot {
@@ -533,9 +624,9 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.88);
   transform: translateY(-50%);
-  animation: bio-sdot-move 1.35s linear infinite;
+  animation: bio-sdot-move 1.65s linear infinite;
   animation-delay: var(--sd);
   display: block;
 }
@@ -572,7 +663,11 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   z-index: 3;
   display: block;
 }
-.bio-gen-inlet    { left: -9px; background: #94a3b8; box-shadow: 0 0 0 3px rgba(148,163,184,.25); }
+.bio-gen-inlet {
+  left: -9px;
+  background: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148,163,184,.25);
+}
 .bio-gen-terminal {
   right: -9px;
   background: #facc15;
@@ -718,20 +813,49 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   from { stroke-dashoffset: 36; }
   to   { stroke-dashoffset: 0; }
 }
-@keyframes bio-flame-flicker {
-  0%   { transform: scaleX(1)   scaleY(1)    skewX(0deg); }
-  33%  { transform: scaleX(1.1) scaleY(1.08) skewX(-3deg); }
-  66%  { transform: scaleX(.9)  scaleY(.95)  skewX(4deg); }
-  100% { transform: scaleX(1.05) scaleY(1.12) skewX(2deg); }
+@keyframes bio-fire-frame-cycle {
+  0%, 5.555% { opacity: 1; }
+  5.556%, 100% { opacity: 0; }
+}
+@keyframes bio-smoke-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) translateX(0) scale(.82) rotate(0deg);
+  }
+  18% {
+    opacity: .34;
+  }
+  72% {
+    opacity: .18;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-25px) translateX(7px) scale(1.25) rotate(8deg);
+  }
+}
+@keyframes bio-flicker-l {
+  0%, 100% { transform: scaleY(1);    opacity: .85; }
+  30%      { transform: scaleY(1.16); opacity: .95; }
+  62%      { transform: scaleY(0.88); opacity: .72; }
+}
+@keyframes bio-flicker-c {
+  0%, 100% { transform: scaleY(1);    opacity: 1; }
+  22%      { transform: scaleY(1.22); opacity: .88; }
+  52%      { transform: scaleY(0.84); opacity: .78; }
+  80%      { transform: scaleY(1.12); opacity: .95; }
+}
+@keyframes bio-flicker-r {
+  0%, 100% { transform: scaleY(1);    opacity: .8; }
+  38%      { transform: scaleY(1.18); opacity: .92; }
+  72%      { transform: scaleY(0.86); opacity: .65; }
+}
+@keyframes bio-glow-pulse {
+  from { opacity: 0.7; }
+  to   { opacity: 1.0; }
 }
 @keyframes bio-outlet-pulse {
   0%,100% { box-shadow: 0 0 0 3px rgba(6,182,212,.3),  0 0 14px rgba(6,182,212,.45); }
   50%     { box-shadow: 0 0 0 7px rgba(6,182,212,.12), 0 0 22px rgba(6,182,212,.7); }
-}
-@keyframes bio-steam-rise {
-  0%   { transform: translateX(var(--sx)) translateY(0)   scale(1);   opacity: .55; }
-  60%  { opacity: .3; }
-  100% { transform: translateX(var(--sx)) translateY(-20px) scale(2.2); opacity: 0; }
 }
 @keyframes bio-sdash {
   from { stroke-dashoffset: 36; }
@@ -791,7 +915,8 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   }
   .bio-turbine  { width: 90px; height: 90px; }
   .bio-rotor    { width: 62px; height: 62px; }
-  .bio-boiler-body { width: 82px; height: 104px; }
+  .bio-boiler-wrap { width: 82px; }
+  .bio-boiler-body { width: 82px; height: 104px; border-radius: 16px; }
   .bio-gen-body { width: 104px; height: 80px; }
   .bio-gen-wrap { width: 104px; }
   .bio-grid-wrap { width: 84px; height: 120px; }

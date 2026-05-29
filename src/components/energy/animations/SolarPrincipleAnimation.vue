@@ -98,6 +98,8 @@ onBeforeUnmount(() => {
             </div>
             <!-- 玻璃光澤 -->
             <div class="sl-panel-sheen"></div>
+            <!-- 掃光動畫 -->
+            <div class="sl-panel-sweep"></div>
           </div>
         </div>
         <p class="sl-lbl">太陽能板</p>
@@ -392,6 +394,8 @@ onBeforeUnmount(() => {
     inset 0 1px 0 rgba(255,255,255,.07);
   padding: 6px;
   overflow: hidden;
+  transform: perspective(280px) rotateY(-10deg) rotateX(4deg);
+  animation: sl-panel-charge 2.4s ease-in-out infinite;
 }
 
 .sl-cells {
@@ -407,16 +411,37 @@ onBeforeUnmount(() => {
   background: linear-gradient(135deg, #1a3e7a, #1e4898);
   border: 1px solid rgba(96,165,250,.18);
   animation: sl-cell-glow 2.2s ease-in-out infinite;
-  animation-delay: calc(var(--ci) * 0.17s);
+  animation-delay: calc(var(--ci) * 0.15s);
 }
 
 /* 玻璃光澤 */
 .sl-panel-sheen {
   position: absolute;
   inset: 0;
-  background: linear-gradient(145deg, rgba(255,255,255,.09) 0%, transparent 45%);
+  background: linear-gradient(145deg, rgba(255,255,255,.13) 0%, transparent 45%);
   border-radius: 5px;
   pointer-events: none;
+}
+
+/* 玻璃反光效果 */
+.sl-panel-sweep {
+  position: absolute;
+  top: -15%;
+  left: -50%;
+  width: 28%;
+  height: 130%;
+  transform: skewX(-6deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(186,224,255,.28) 25%,
+    rgba(255,255,255,.86) 50%,
+    rgba(186,224,255,.28) 75%,
+    transparent 100%
+  );
+  animation: sl-reflect 3.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 3;
 }
 
 /* ═══ DC 傳動（仿水力傳動軸） ═══════════════════════════ */
@@ -616,7 +641,20 @@ onBeforeUnmount(() => {
 }
 @keyframes sl-cell-glow {
   0%,100% { background: linear-gradient(135deg, #1a3e7a, #1e4898); opacity: .72; }
-  50%      { background: linear-gradient(135deg, #2563eb, #1d52c0); opacity: 1; }
+  45%     { background: linear-gradient(135deg, #1d4ed8, #2563eb); opacity: .9; }
+  55%     { background: linear-gradient(135deg, #3b82f6, #7dd3fc); opacity: 1;
+             box-shadow: 0 0 8px 2px rgba(96,165,250,.7), inset 0 0 5px rgba(255,255,255,.3); }
+  65%     { background: linear-gradient(135deg, #1d4ed8, #2563eb); opacity: .9; }
+}
+@keyframes sl-panel-charge {
+  0%,100% { box-shadow: 0 0 0 1px rgba(96,165,250,.12), 0 16px 32px rgba(15,23,42,.28), inset 0 1px 0 rgba(255,255,255,.07); }
+  50%     { box-shadow: 0 0 0 3px rgba(59,130,246,.45), 0 16px 32px rgba(15,23,42,.28), 0 0 28px rgba(59,130,246,.28), inset 0 1px 0 rgba(255,255,255,.07); }
+}
+@keyframes sl-reflect {
+  0%, 15%   { left: -50%;  opacity: 0; }
+  25%        { opacity: 1; }
+  65%        { opacity: 1; }
+  80%, 100%  { left: 155%; opacity: 0; }
 }
 @keyframes sl-sdot {
   from { left: -10%; opacity: 0; }
