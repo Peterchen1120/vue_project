@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
@@ -42,8 +42,9 @@
         aspect-ratio: 1672 / 941;
       }
 
-      .map-frame img,
-      .mover-layer,
+      /* ?芸?????湔摮?蝝?憟?冽遛摰?嚗over ??img 銝?敶梢 */
+      /* direct-child only, 避免蓋掉 mover img */
+      .map-frame > img,
       .map-layer {
         position: absolute;
         inset: 0;
@@ -51,39 +52,66 @@
         height: 100%;
       }
 
-      .map-frame img {
+      .map-frame > img {
         display: block;
         object-fit: cover;
       }
 
+      .map-layer { overflow: visible; }
+
+      /* ── mover 層 ── */
       .mover-layer {
-        pointer-events: none;
-        z-index: 2;
-      }
-
-      .map-layer {
-        overflow: visible;
-        z-index: 3;
-      }
-
-      .mover {
         position: absolute;
-        left: var(--x);
-        top: var(--y);
-        width: var(--w);
-        transform-origin: center;
-        filter: drop-shadow(0 7px 5px rgba(40, 87, 103, 0.2));
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      .mover-layer img {
+        position: absolute;
+        inset: unset;
+        width: var(--w, 8%);
+        height: auto;
+        left: var(--x, 0);
+        top:  var(--y, 0);
       }
 
-      .mover--boat {
-        animation: boat-drift var(--speed, 8s) ease-in-out infinite;
+      /* ── 海豚動畫：拋物線圓弧，linear 計時確保流暢 ── */
+      .mover--dolphin-jump {
+        animation: dolphin-jump var(--speed, 9s) linear infinite;
+      }
+      .mover--dolphin-jump-left {
+        animation: dolphin-jump-left var(--speed, 9s) linear infinite;
+        animation-delay: var(--delay, 0s);
+      }
+      @keyframes dolphin-jump {
+        /* 由左往右：出水鼻朝上（負角）→ 頂點水平 → 入水鼻朝下（正角）*/
+        0%        { transform: translate(  0px,  14px) rotate(-28deg); opacity: 0;   }
+        1%        { transform: translate(  4px,   5px) rotate(-20deg); opacity: 1;   }
+        4%        { transform: translate( 14px,  -6px) rotate(-11deg); opacity: 1;   }
+        7%        { transform: translate( 26px, -16px) rotate( -3deg); opacity: 1;   }
+        9%        { transform: translate( 34px, -20px) rotate(  0deg); opacity: 1;   }
+        12%       { transform: translate( 46px, -15px) rotate( 20deg); opacity: 1;   }
+        15%       { transform: translate( 58px,  -3px) rotate( 42deg); opacity: 1;   }
+        17%       { transform: translate( 66px,   5px) rotate( 58deg); opacity: 0.5; }
+        18%       { transform: translate( 70px,  14px) rotate( 70deg); opacity: 0;   }
+        19%, 100% { transform: translate(  0px,  14px) rotate(-28deg); opacity: 0;   }
+      }
+      @keyframes dolphin-jump-left {
+        /* scaleX(-1) 鏡射：x/rotation 值和 dolphin-jump 相同，視覺上完全對稱 */
+        0%        { transform: scaleX(-1) translate(  0px,  14px) rotate(-28deg); opacity: 0;   }
+        1%        { transform: scaleX(-1) translate(  4px,   5px) rotate(-20deg); opacity: 1;   }
+        4%        { transform: scaleX(-1) translate( 14px,  -6px) rotate(-11deg); opacity: 1;   }
+        7%        { transform: scaleX(-1) translate( 26px, -16px) rotate( -3deg); opacity: 1;   }
+        9%        { transform: scaleX(-1) translate( 34px, -20px) rotate(  0deg); opacity: 1;   }
+        12%       { transform: scaleX(-1) translate( 46px, -15px) rotate( 20deg); opacity: 1;   }
+        15%       { transform: scaleX(-1) translate( 58px,  -3px) rotate( 42deg); opacity: 1;   }
+        17%       { transform: scaleX(-1) translate( 66px,   5px) rotate( 58deg); opacity: 0.5; }
+        18%       { transform: scaleX(-1) translate( 70px,  14px) rotate( 70deg); opacity: 0;   }
+        19%, 100% { transform: scaleX(-1) translate(  0px,  14px) rotate(-28deg); opacity: 0;   }
       }
 
-      .mover--dolphins {
-        animation: dolphin-glide var(--speed, 6s) ease-in-out infinite;
-      }
-
-      /* ── Hotspots ── */
+      /* ?? Hotspots ?? */
       .hotspot { cursor: pointer; outline: none; }
       .hotspot path {
         fill: rgba(255, 245, 160, 0.02);
@@ -99,13 +127,13 @@
         filter: drop-shadow(0 0 14px rgba(255, 238, 126, 0.86));
       }
 
-      /* ══════════════════════════════════════════
+      /* ??????????????????????????????????????????
          WIND TURBINES
          Fix: transform-origin 50% 66.7% so the pivot
          lands on the hub (0,0) inside the fill-box.
-         Bounding box: x[-50,50] y[-58,29] → height 87
-         Hub y=0 → 58/87 ≈ 66.7% from top
-      ══════════════════════════════════════════ */
+         Bounding box: x[-50,50] y[-58,29] ??height 87
+         Hub y=0 ??58/87 ??66.7% from top
+      ?????????????????????????????????????????? */
       .turbine-blades {
         animation: spin 5s linear infinite;
         transform-box: fill-box;
@@ -124,12 +152,10 @@
         stroke-width: 3;
       }
 
-      /* ══════════════════════════════════════════
+      /* ??????????????????????????????????????????
          SMOKE PUFFS
-         圓形煙霧：每個噴口放 3 顆 circle，等差延遲
-         形成連續上升流。transform-box + transform-origin
-         讓 scale 以圓心為基點膨脹，不會飛出去。
-      ══════════════════════════════════════════ */
+         ?耦?嚗???? 3 憿?circle嚗?撌桀辣??         敶Ｘ????銝?瘚ransform-box + transform-origin
+         霈?scale 隞亙?敹?粹??刻嚗????箏??      ?????????????????????????????????????????? */
       .smoke {
         opacity: 0;
         animation: smoke-rise 3.4s ease-in-out infinite;
@@ -142,24 +168,21 @@
       .smoke.d1   { animation-delay: 1.13s; }
       .smoke.d2   { animation-delay: 2.27s; }
 
-      /* ══════════════════════════════════════════
+      /* ??????????????????????????????????????????
          WATER / HYDRO
-         覆蓋式半透明流動 overlay：
-         每條瀑布用 clipPath 框住區域，
-         pattern 帶狀漸層往流向方向捲動，
-         讓背景圖的瀑布看起來真的在流動。
-      ══════════════════════════════════════════ */
+         閬?撘???瘚? overlay嚗?         瘥?????clipPath 獢????
+         pattern 撣嗥?瞍詨惜敺瘚??孵??脣?嚗?         霈??臬????絲靘??瘚???      ?????????????????????????????????????????? */
       .ripple {
         fill: none;
         stroke: rgba(180, 245, 255, 0.7);
         stroke-width: 2.5;
       }
 
-      /* ══════════════════════════════════════════
+      /* ??????????????????????????????????????????
          SUN (Solar Isle)
          Replaced 3 floating circles with a proper
          sun disc + rotating rays element.
-      ══════════════════════════════════════════ */
+      ?????????????????????????????????????????? */
       .sun-disc {
         fill: #ffe066;
         animation: sun-disc-pulse 2.6s ease-in-out infinite;
@@ -183,7 +206,7 @@
         opacity: 0.85;
       }
 
-      /* Solar panel sparkle glints — 純 opacity，避免 SVG transform-box 相容問題 */
+      /* Solar panel sparkle glints ??蝝?opacity嚗??SVG transform-box ?詨捆?? */
       .sparkle        { opacity: 0; animation: sparkle-appear 3.8s ease-in-out infinite; }
       .sparkle.s2     { animation-delay: -0.76s; }
       .sparkle.s3     { animation-delay: -1.52s; }
@@ -195,14 +218,14 @@
         50%, 100%     { opacity: 0;    }
       }
 
-      /* ══════════════════════════════════════════
+      /* ??????????????????????????????????????????
          KEYFRAMES
-      ══════════════════════════════════════════ */
+      ?????????????????????????????????????????? */
       @keyframes spin {
         to { transform: rotate(360deg); }
       }
 
-      /* Smoke puff: 從小圓膨脹並上升，以 fill-box 圓心縮放不飄移 */
+      /* Smoke puff: 敺???嫣蒂銝?嚗誑 fill-box ??蝮格銝?蝘?*/
       @keyframes smoke-rise {
         0%   { opacity: 0;    transform: translateY(0)     scale(0.35); }
         18%  { opacity: 0.75; }
@@ -220,19 +243,7 @@
         to { transform: rotate(45deg); }
       }
 
-      @keyframes boat-drift {
-        0%, 100% { transform: translate3d(-8px, 4px, 0) rotate(-1.5deg); }
-        50% { transform: translate3d(12px, -5px, 0) rotate(1.5deg); }
-      }
-
-      @keyframes dolphin-glide {
-        0%, 100% { transform: translate3d(-10px, 5px, 0) rotate(-2deg); }
-        42% { transform: translate3d(18px, -13px, 0) rotate(2deg); }
-        68% { transform: translate3d(26px, -4px, 0) rotate(1deg); }
-      }
-
-
-      /* ── UI ── */
+      /* ?? UI ?? */
       .tooltip {
         position: absolute;
         left: var(--x, 50%);
@@ -326,47 +337,6 @@
       <section class="map-frame" aria-label="Energy Magic Islands interactive map">
         <img src="./energy-map-clean-no-movers.png" alt="Energy Magic Islands clean map" />
 
-        <!-- mover-layer 暫時註解
-        <div class="mover-layer" aria-hidden="true">
-          <img
-            class="mover mover--dolphins"
-            src="./movers/dolphins-center.png"
-            style="--x: 45.1%; --y: 40.9%; --w: 11.2%; --speed: 6.2s"
-            alt=""
-          />
-          <img
-            class="mover mover--dolphins"
-            src="./movers/dolphins-southwest.png"
-            style="--x: 17.6%; --y: 81.2%; --w: 14.4%; --speed: 7.4s"
-            alt=""
-          />
-          <img
-            class="mover mover--boat"
-            src="./movers/sailboat-west.png"
-            style="--x: 6.7%; --y: 42.3%; --w: 5.1%; --speed: 8.5s"
-            alt=""
-          />
-          <img
-            class="mover mover--boat"
-            src="./movers/ship-central.png"
-            style="--x: 32.5%; --y: 47.4%; --w: 8.6%; --speed: 9s"
-            alt=""
-          />
-          <img
-            class="mover mover--boat"
-            src="./movers/sailboat-east.png"
-            style="--x: 60.2%; --y: 54.1%; --w: 6.8%; --speed: 8.2s"
-            alt=""
-          />
-          <img
-            class="mover mover--boat"
-            src="./movers/sailboat-solar.png"
-            style="--x: 57.2%; --y: 42.6%; --w: 5.4%; --speed: 7.6s"
-            alt=""
-          />
-        </div>
-        -->
-
         <svg class="map-layer" viewBox="0 0 1672 941" role="img" aria-label="Animated energy map overlays">
           <defs>
             <!-- Blade set: hub at (0,0), blades extend outward -->
@@ -381,49 +351,47 @@
               <feGaussianBlur stdDeviation="1.2"/>
             </filter>
 
-            <!-- ── 瀑布 ClipPath：依像素分析所得邊緣輪廓 ──
-                 WF1: 左瀑布  斜率 −0.31px/row → 每30px下移 −9.4px
-                 WF2: 中左瀑布 斜率 −0.10px/row → 每30px下移 −3.0px
-                 WF3: 中右瀑布 斜率 −0.07px/row → 每30px下移 −2.0px
-                 WF4: 右瀑布  斜率 −0.20px/row → 每30px下移 −6.0px
-            ──────────────────────────────────────────────── -->
+            <!-- ?? ?? ClipPath嚗???????蝎曄Ⅱ鞎澆?瘞湔??? ??
+                 WF1: 撌血瘞湧?  y=244-281嚗蝺????嗆?
+                 WF2: 銝剖椰?  y=214-280嚗?◤????x=970
+                 WF3: 銝剖?  y=230-290嚗椰?????x=981 韏?                 WF4: ?喳瘞湧?  y=270-300嚗?畾?y=248-256 ?函???嚗?            ???????????????????????????????????????????????? -->
             <clipPath id="wf1-clip">
-              <polygon points="816,245 841,245 825,300 800,300"/>
+              <polygon points="826,244 848,244 836,281 813,281"/>
             </clipPath>
             <clipPath id="wf2-clip">
-              <polygon points="930,200 974,200 973,295 918,295"/>
+              <polygon points="936,214 970,214 970,280 921,280"/>
             </clipPath>
             <clipPath id="wf3-clip">
-              <polygon points="987,232 1016,232 1016,295 977,295"/>
+              <polygon points="991,230 1019,230 1007,290 985,290"/>
             </clipPath>
             <clipPath id="wf4-clip">
-              <polygon points="1078,250 1114,250 1104,300 1068,300"/>
+              <polygon points="1086,270 1106,270 1100,300 1070,300"/>
             </clipPath>
 
-            <!-- 帶狀漸層 pattern：淡藍-白光帶-深藍交替，由JS控制 patternTransform 捲動 -->
-            <pattern id="wf1-pat" x="0" y="0" width="80" height="30" patternUnits="userSpaceOnUse">
-              <rect y="0"  width="80" height="9"  fill="rgba(170,225,252,0.52)"/>
-              <rect y="9"  width="80" height="4"  fill="rgba(255,255,255,0.82)"/>
-              <rect y="13" width="80" height="9"  fill="rgba(140,205,245,0.38)"/>
-              <rect y="22" width="80" height="8"  fill="rgba(180,230,255,0.20)"/>
+            <!-- ??撣嗥? pattern嚗 JS ??撠???瘚?敺??脣?嚗?                 瘞游像撣嗅 patternTransform rotate 敺停??朣??????湔???-->
+            <pattern id="wf1-pat" x="0" y="0" width="80" height="20" patternUnits="userSpaceOnUse">
+              <rect y="0"  width="80" height="6"  fill="rgba(186,232,255,0.48)"/>
+              <rect y="6"  width="80" height="3"  fill="rgba(255,255,255,0.75)"/>
+              <rect y="9"  width="80" height="5"  fill="rgba(148,210,245,0.32)"/>
+              <rect y="14" width="80" height="6"  fill="rgba(186,230,255,0.10)"/>
             </pattern>
-            <pattern id="wf2-pat" x="0" y="0" width="80" height="30" patternUnits="userSpaceOnUse">
-              <rect y="0"  width="80" height="9"  fill="rgba(170,225,252,0.52)"/>
-              <rect y="9"  width="80" height="4"  fill="rgba(255,255,255,0.82)"/>
-              <rect y="13" width="80" height="9"  fill="rgba(140,205,245,0.38)"/>
-              <rect y="22" width="80" height="8"  fill="rgba(180,230,255,0.20)"/>
+            <pattern id="wf2-pat" x="0" y="0" width="80" height="20" patternUnits="userSpaceOnUse">
+              <rect y="0"  width="80" height="6"  fill="rgba(186,232,255,0.48)"/>
+              <rect y="6"  width="80" height="3"  fill="rgba(255,255,255,0.75)"/>
+              <rect y="9"  width="80" height="5"  fill="rgba(148,210,245,0.32)"/>
+              <rect y="14" width="80" height="6"  fill="rgba(186,230,255,0.10)"/>
             </pattern>
-            <pattern id="wf3-pat" x="0" y="0" width="80" height="30" patternUnits="userSpaceOnUse">
-              <rect y="0"  width="80" height="9"  fill="rgba(170,225,252,0.52)"/>
-              <rect y="9"  width="80" height="4"  fill="rgba(255,255,255,0.82)"/>
-              <rect y="13" width="80" height="9"  fill="rgba(140,205,245,0.38)"/>
-              <rect y="22" width="80" height="8"  fill="rgba(180,230,255,0.20)"/>
+            <pattern id="wf3-pat" x="0" y="0" width="80" height="20" patternUnits="userSpaceOnUse">
+              <rect y="0"  width="80" height="6"  fill="rgba(186,232,255,0.48)"/>
+              <rect y="6"  width="80" height="3"  fill="rgba(255,255,255,0.75)"/>
+              <rect y="9"  width="80" height="5"  fill="rgba(148,210,245,0.32)"/>
+              <rect y="14" width="80" height="6"  fill="rgba(186,230,255,0.10)"/>
             </pattern>
-            <pattern id="wf4-pat" x="0" y="0" width="80" height="30" patternUnits="userSpaceOnUse">
-              <rect y="0"  width="80" height="9"  fill="rgba(170,225,252,0.52)"/>
-              <rect y="9"  width="80" height="4"  fill="rgba(255,255,255,0.82)"/>
-              <rect y="13" width="80" height="9"  fill="rgba(140,205,245,0.38)"/>
-              <rect y="22" width="80" height="8"  fill="rgba(180,230,255,0.20)"/>
+            <pattern id="wf4-pat" x="0" y="0" width="80" height="20" patternUnits="userSpaceOnUse">
+              <rect y="0"  width="80" height="6"  fill="rgba(186,232,255,0.48)"/>
+              <rect y="6"  width="80" height="3"  fill="rgba(255,255,255,0.75)"/>
+              <rect y="9"  width="80" height="5"  fill="rgba(148,210,245,0.32)"/>
+              <rect y="14" width="80" height="6"  fill="rgba(186,230,255,0.10)"/>
             </pattern>
             <!-- Smoke blur -->
             <filter id="smoke-blur" x="-80%" y="-80%" width="260%" height="260%">
@@ -433,10 +401,9 @@
 
           <g aria-hidden="true">
 
-            <!-- ── WIND: 5 turbines ── -->
-            <!-- 外層 g：純 SVG 屬性定位（不碰 CSS transform）
-                 內層 g：純 CSS animation 旋轉（無 SVG transform 屬性）
-                 兩層分開才能正確疊加，不會互相覆蓋               -->
+            <!-- ?? WIND: 5 turbines ?? -->
+            <!-- 憭惜 g嚗? SVG 撅祆批?雿?銝１ CSS transform嚗?                 ?批惜 g嚗? CSS animation ??嚗 SVG transform 撅祆改?
+                 ?拙惜???甇?Ⅱ??嚗????貉???              -->
             <g transform="translate(391,118)">
               <g class="turbine-blades"><use href="#blade-set" /></g>
             </g>
@@ -453,44 +420,38 @@
               <g class="turbine-blades" style="animation-duration:5.8s"><use href="#blade-set" /></g>
             </g>
 
-            <!-- ── HYDRO: 覆蓋式瀑布流動 overlay（4 道水流）── -->
+            <!-- ?? HYDRO: 閬?撘?瘚? overlay嚗? ?偌瘚??? -->
 
-            <!-- WF1: 左瀑布（往左下 −9.4px/30px） -->
-            <g clip-path="url(#wf1-clip)" filter="url(#wf-blur)">
-              <rect x="794" y="243" width="52" height="90"
-                    fill="url(#wf1-pat)" opacity="0.92"/>
+            <!-- ?? overlay嚗atternTransform rotate ??JS 靘??身摰?-->
+            <g clip-path="url(#wf1-clip)">
+              <rect x="808" y="242" width="46" height="100"
+                    fill="url(#wf1-pat)" opacity="0.90"/>
+            </g>
+            <g clip-path="url(#wf2-clip)">
+              <rect x="918" y="212" width="56" height="120"
+                    fill="url(#wf2-pat)" opacity="0.90"/>
+            </g>
+            <g clip-path="url(#wf3-clip)">
+              <rect x="983" y="228" width="40" height="115"
+                    fill="url(#wf3-pat)" opacity="0.90"/>
+            </g>
+            <g clip-path="url(#wf4-clip)">
+              <rect x="1066" y="268" width="46" height="85"
+                    fill="url(#wf4-pat)" opacity="0.90"/>
             </g>
 
-            <!-- WF2: 中左瀑布（微斜 −3px/30px） -->
-            <g clip-path="url(#wf2-clip)" filter="url(#wf-blur)">
-              <rect x="916" y="198" width="62" height="130"
-                    fill="url(#wf2-pat)" opacity="0.92"/>
-            </g>
-
-            <!-- WF3: 中右瀑布（近垂直 −2px/30px） -->
-            <g clip-path="url(#wf3-clip)" filter="url(#wf-blur)">
-              <rect x="975" y="230" width="44" height="100"
-                    fill="url(#wf3-pat)" opacity="0.92"/>
-            </g>
-
-            <!-- WF4: 右瀑布（斜左 −6px/30px） -->
-            <g clip-path="url(#wf4-clip)" filter="url(#wf-blur)">
-              <rect x="1062" y="248" width="56" height="85"
-                    fill="url(#wf4-pat)" opacity="0.92"/>
-            </g>
-
-            <!-- 湖面漣漪：對應 4 條瀑布落水點 -->
+            <!-- 皝瞍?憚嚗???4 璇??賣偌暺?-->
             <circle class="ripple" cx="812" cy="322" r="6"><animate attributeName="r" from="6" to="26" dur="2.1s" begin="0s"    repeatCount="indefinite"/><animate attributeName="opacity" from="0.7" to="0" dur="2.1s" begin="0s"    repeatCount="indefinite"/></circle>
             <circle class="ripple" cx="946" cy="318" r="6"><animate attributeName="r" from="6" to="32" dur="2.0s" begin="0.5s"  repeatCount="indefinite"/><animate attributeName="opacity" from="0.7" to="0" dur="2.0s" begin="0.5s"  repeatCount="indefinite"/></circle>
             <circle class="ripple" cx="996" cy="318" r="5"><animate attributeName="r" from="5" to="28" dur="1.9s" begin="1.0s"  repeatCount="indefinite"/><animate attributeName="opacity" from="0.65" to="0" dur="1.9s" begin="1.0s" repeatCount="indefinite"/></circle>
             <circle class="ripple" cx="1086" cy="322" r="5"><animate attributeName="r" from="5" to="24" dur="2.3s" begin="0.3s" repeatCount="indefinite"/><animate attributeName="opacity" from="0.65" to="0" dur="2.3s" begin="0.3s" repeatCount="indefinite"/></circle>
 
-            <!-- ── SOLAR: animated sun above Solar Isle ── -->
-            <!-- Sun positioned at (1310, 240) — shifted left+down to avoid island label -->
+            <!-- ?? SOLAR: animated sun above Solar Isle ?? -->
+            <!-- Sun positioned at (1310, 240) ??shifted left+down to avoid island label -->
             <g transform="translate(1310,240)">
               <!-- outer halo -->
               <circle class="sun-halo" r="42" />
-              <!-- rays — 8 spokes, rotate slowly -->
+              <!-- rays ??8 spokes, rotate slowly -->
               <g class="sun-rays-group">
                 <line class="sun-ray" x1="0" y1="-32" x2="0"   y2="-52" stroke-width="5" />
                 <line class="sun-ray" x1="23" y1="-23" x2="37" y2="-37" stroke-width="4" />
@@ -505,8 +466,8 @@
               <circle class="sun-disc" r="26" />
             </g>
 
-            <!-- Solar panel sparkle glints：5 顆 4 芒星，錯開時間輪流閃 -->
-            <!-- 每顆 sparkle：十字主芒（白）+ 斜芒（淡黃）+ 中心亮點 -->
+            <!-- Solar panel sparkle glints嚗? 憿?4 ??嚗???憚瘚? -->
+            <!-- 瘥? sparkle嚗?摮蜓???踝?+ ??嚗楚暺?+ 銝剖?鈭桅? -->
             <g class="sparkle s1" transform="translate(1368,388)">
               <line x1="0" y1="-9" x2="0" y2="9" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
               <line x1="-9" y1="0" x2="9" y2="0" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
@@ -543,12 +504,11 @@
               <circle r="1.8" fill="white"/>
             </g>
 
-            <!-- ── SMOKE PUFFS ──
-                 每個噴口 3 顆 circle，延遲各差 1/3 周期
-                 transform-box:fill-box 讓 scale 以圓心膨脹
-            ── -->
+            <!-- ?? SMOKE PUFFS ??
+                 瘥??3 憿?circle嚗辣?脣?撌?1/3 ?冽?
+                 transform-box:fill-box 霈?scale 隞亙?敹??            ?? -->
 
-            <!-- Nuclear Isle：3 根冷卻塔（純白，大一點） -->
+            <!-- Nuclear Isle嚗? ?孵?餃?嚗??踝?憭找?暺? -->
             <circle class="smoke"    cx="252" cy="506" r="14" fill="white" />
             <circle class="smoke d1" cx="252" cy="506" r="14" fill="white" />
             <circle class="smoke d2" cx="252" cy="506" r="14" fill="white" />
@@ -561,7 +521,7 @@
             <circle class="smoke d1" cx="440" cy="514" r="12" fill="white" />
             <circle class="smoke d2" cx="440" cy="514" r="12" fill="white" />
 
-            <!-- Biomass Isle：2 根煙囪（米白略灰，煤煙感） -->
+            <!-- Biomass Isle嚗? ?寧??迎?蝐喟?亦嚗??嚗?-->
             <circle class="smoke bio"    cx="902" cy="614" r="13" fill="rgba(240,240,235,0.95)" />
             <circle class="smoke bio d1" cx="902" cy="614" r="13" fill="rgba(240,240,235,0.95)" />
             <circle class="smoke bio d2" cx="902" cy="614" r="13" fill="rgba(240,240,235,0.95)" />
@@ -570,7 +530,7 @@
             <circle class="smoke bio d1" cx="850" cy="636" r="11" fill="rgba(235,235,228,0.9)" />
             <circle class="smoke bio d2" cx="850" cy="636" r="11" fill="rgba(235,235,228,0.9)" />
 
-            <!-- Geothermal Isle：3 個噴口（白裡帶藍，水蒸氣感） -->
+            <!-- Geothermal Isle嚗? ?????質ㄐ撣嗉?嚗偌?豢除?? -->
             <circle class="smoke geo"    cx="1396" cy="662" r="15" fill="rgba(235,248,255,0.95)" />
             <circle class="smoke geo d1" cx="1396" cy="662" r="15" fill="rgba(235,248,255,0.95)" />
             <circle class="smoke geo d2" cx="1396" cy="662" r="15" fill="rgba(235,248,255,0.95)" />
@@ -585,7 +545,7 @@
 
           </g>
 
-          <!-- ── HOTSPOTS ── -->
+          <!-- ?? HOTSPOTS ?? -->
           <g class="hotspot" data-energy="wind" tabindex="0" role="button" aria-label="Wind Isle">
             <path d="M70 265 L250 134 L489 94 L664 216 L710 354 L598 421 L378 414 L178 355 Z" />
           </g>
@@ -605,14 +565,26 @@
             <path d="M1080 684 L1220 570 L1415 573 L1584 646 L1607 766 L1475 841 L1214 829 L1082 760 Z" />
           </g>
         </svg>
+                <!-- movers: 海豚 + 單艘船隻 -->
+        <div class="mover-layer">
+          <img class="mover mover--dolphin-jump"
+               src="./cutouts-final/dolphin-center-left.png"
+               style="--x:41%;--y:52%;--w:4.5%;--speed:9s" alt=""/>
+          <img class="mover mover--dolphin-jump-left"
+               src="./cutouts-final/dolphin-center-left.png"
+               style="--x:68%;--y:50%;--w:4%;--speed:9s;--delay:-4.5s" alt=""/>
+          <img data-boat class="mover"
+               src="./movers/sailboat-west.png"
+               style="width:4%;top:84%;left:102%" alt=""/>
+        </div>
 
         <div class="tooltip" id="tooltip" aria-hidden="true">Wind Isle</div>
       </section>
 
       <section class="control-dock" aria-label="Energy map controls">
         <div class="info-panel">
-          <h1 id="energyTitle">選擇一座能源島</h1>
-          <p id="energyDescription">點擊地圖上的島或下方按鈕，這裡會顯示對應能源。正式版可以在這裡接 Modal、路由或關卡入口。</p>
+          <h1 id="energyTitle">?豢?銝摨扯皞雀</h1>
+          <p id="energyDescription">暺??啣?銝?撜嗆?銝??嚗ㄐ?＊蝷箏??皞迤撘??臭誑?券ㄐ??Modal?楝?望???亙??/p>
         </div>
         <div class="energy-buttons" aria-label="Energy island buttons">
           <button class="energy-button" data-energy="wind">Wind</button>
@@ -627,12 +599,12 @@
 
     <script>
       const energyCopy = {
-        wind:       { title: "Wind Isle",       label: "Wind Isle",       description: "風力島：五座風機葉片持續旋轉，轉軸對齊輪轂中心。",              x: "27%", y: "27%" },
-        hydro:      { title: "Hydro Isle",      label: "Hydro Isle",      description: "水力島：三道水流沿瀑布向下流動，湖面有波紋擴散。",             x: "57%", y: "27%" },
-        solar:      { title: "Solar Isle",      label: "Solar Isle",      description: "太陽能島：天空有旋轉光芒的太陽，島上有三個太陽能板閃爍。",     x: "84%", y: "43%" },
-        nuclear:    { title: "Nuclear Isle",    label: "Nuclear Isle",    description: "核能島：三根冷卻塔持續噴出蒸氣，平滑上升不再有抖動。",         x: "22%", y: "61%" },
-        biomass:    { title: "Biomass Isle",    label: "Biomass Isle",    description: "生質能島：煙囪煙霧緩緩上升，兩道煙各有不同節奏。",             x: "47%", y: "74%" },
-        geothermal: { title: "Geothermal Isle", label: "Geothermal Isle", description: "地熱島：三處地熱噴口蒸氣各自錯開時序，循環上升。",             x: "80%", y: "75%" },
+        wind:       { title: "Wind Isle",       label: "Wind Isle",       description: "Wind power harnesses natural breeze to generate clean electricity.",              x: "27%", y: "27%" },
+        hydro:      { title: "Hydro Isle",      label: "Hydro Isle",      description: "Hydro power converts flowing water into renewable energy.",             x: "57%", y: "27%" },
+        solar:      { title: "Solar Isle",      label: "Solar Isle",      description: "Solar panels capture sunlight and convert it to electrical power.",     x: "84%", y: "43%" },
+        nuclear:    { title: "Nuclear Isle",    label: "Nuclear Isle",    description: "Nuclear fission releases enormous energy with zero carbon emissions.",         x: "22%", y: "61%" },
+        biomass:    { title: "Biomass Isle",    label: "Biomass Isle",    description: "Biomass energy converts organic materials into usable fuel and power.",             x: "47%", y: "74%" },
+        geothermal: { title: "Geothermal Isle", label: "Geothermal Isle", description: "Geothermal energy taps heat from deep within the Earth.",             x: "80%", y: "75%" },
       };
 
       const tooltip    = document.querySelector("#tooltip");
@@ -663,12 +635,7 @@
 
       setActive("wind");
 
-      // ── 瀑布流動動畫 ──
-      // 4 道水流，各自依 PIL 像素分析所得斜率捲動 patternTransform
-      // WF1 (左)：  avg slope −0.312 → per 30px: x=−9.4
-      // WF2 (中左)：avg slope −0.100 → per 30px: x=−3.0
-      // WF3 (中右)：avg slope −0.067 → per 30px: x=−2.0
-      // WF4 (右)：  avg slope −0.200 → per 30px: x=−6.0
+      // ── 瀑布流動 ──
       (function () {
         const wf1 = document.getElementById('wf1-pat');
         const wf2 = document.getElementById('wf2-pat');
@@ -676,16 +643,39 @@
         const wf4 = document.getElementById('wf4-pat');
         let t = 0;
         function tick() {
-          t += 0.55;
-          const o = t % 30;
-          if (wf1) wf1.setAttribute('patternTransform',
-            `translate(${(-(o * 9.4 / 30)).toFixed(2)} ${o.toFixed(2)})`);
-          if (wf2) wf2.setAttribute('patternTransform',
-            `translate(${(-(o * 3.0 / 30)).toFixed(2)} ${o.toFixed(2)})`);
-          if (wf3) wf3.setAttribute('patternTransform',
-            `translate(${(-(o * 2.0 / 30)).toFixed(2)} ${o.toFixed(2)})`);
-          if (wf4) wf4.setAttribute('patternTransform',
-            `translate(${(-(o * 6.0 / 30)).toFixed(2)} ${o.toFixed(2)})`);
+          t += 0.62;
+          const o = t % 20;
+          if (wf1) wf1.setAttribute('patternTransform', `rotate(21.4) translate(0 ${o.toFixed(2)})`);
+          if (wf2) wf2.setAttribute('patternTransform', `rotate(7.1)  translate(0 ${o.toFixed(2)})`);
+          if (wf3) wf3.setAttribute('patternTransform', `rotate(4.8)  translate(0 ${o.toFixed(2)})`);
+          if (wf4) wf4.setAttribute('patternTransform', `rotate(14.0) translate(0 ${o.toFixed(2)})`);
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      })();
+
+      // ── 船隻：由右往左，底部海面 ──
+      (function () {
+        const boat  = document.querySelector('[data-boat]');
+        const baseY = 84.0;
+        const speed = 0.055;
+        const wAmp  = 0.28;
+        const wFreq = 0.7;
+        const maxRot = 1.2;
+        let x = 102, last = null;
+        function tick(ts) {
+          if (!last) last = ts;
+          const dt = Math.min((ts - last) / 1000, 0.1);
+          last = ts;
+          const t = ts / 1000;
+          x -= speed * dt * 60;
+          if (x < -12) x = 102;
+          if (boat) {
+            boat.style.left      = x + '%';
+            boat.style.width     = '4%';
+            boat.style.top       = (baseY + Math.sin(t * wFreq) * wAmp) + '%';
+            boat.style.transform = `rotate(${(Math.sin(t * wFreq * 0.65 + 1) * maxRot).toFixed(2)}deg)`;
+          }
           requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
