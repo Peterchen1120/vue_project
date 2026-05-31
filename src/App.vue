@@ -3,7 +3,7 @@
     <!-- 頂部導覽列 -->
     <header>
       <RouterLink class="logo" to="/">
-        Energy Pulse｜能源脈動
+        SDG 7 能源魔法島
       </RouterLink>
 
       <nav>
@@ -16,7 +16,7 @@
         </ul>
       </nav>
 
-      <button class="login-btn">登入</button>
+      <a class="login-btn" href="https://developer.mozilla.org/zh-TW/docs/Web/HTML" target="_blank">登入</a>
     </header>
 
     <!-- 這裡顯示 HomeView / MapView / QuizView 等頁面 -->
@@ -29,11 +29,10 @@
         <div class="footer-info-group">
           <div class="footer-col">
             <h4>聯絡我們</h4>
-            <p><span class="icon">&#9993;</span> zhengweichen898@gmail.com</p>
+            <p><span class="icon">&#9993;</span> shih@ncu.edu.tw</p>
             <p><span class="icon">&#128222;</span> (03)412-5252</p>
-            <br />
-            <p>聯繫地址: 桃園市中壢區中大路300號</p>
-            <p>服務時間 | 星期一至星期五 9:30 - 12:00 / 13:00 - 17:00</p>
+            <p>📍 聯繫地址:桃園市中壢區中大路300號</p>
+            <p>📍 服務時間:週一至週五 9:00 - 12:00/13:00 - 17:00</p>
           </div>
         </div>
 
@@ -53,7 +52,7 @@
           </div>
 
           <div class="copyright">
-            © Energy Pulse All Rights Reserved.
+           © まほおのしま All Rights Reserved.
           </div>
         </div>
       </div>
@@ -70,9 +69,8 @@ import { ref } from 'vue'
 
 const navItems = [
   { text: 'SDG 7 介紹', to: '/sdg7' },
-  { text: '資料來源', to: '/sources' },
   { text: '進入測驗', to: '/quiz' },
-  { text: '關於我們', to: '/about' }
+  { text: '相關新聞', to: '/news' },
 ]
 
 const footerLinks = [
