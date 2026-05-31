@@ -223,7 +223,7 @@ onMounted(() => {
   position: absolute;
   top: 28px;
   left: 40px;
-  background: linear-gradient(to right, #0ea5e9, #0369a1);
+  background: linear-gradient(to right, #0369a1, #0ea5e9);
   color: #fff;
   border: none;
   padding: 8px 24px;
@@ -334,7 +334,7 @@ onMounted(() => {
   padding: 14px 48px;
   border: none;
   border-radius: 30px;
-  background: linear-gradient(to right, #0ea5e9, #0369a1);
+  background: linear-gradient(to right, #0369a1, #0ea5e9);
   color: #fff;
   font-size: 1.05rem;
   font-weight: 800;

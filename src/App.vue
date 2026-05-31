@@ -153,7 +153,7 @@ const footerLinks = [
   }
 
   .login-btn {
-    background: linear-gradient(to right, #0ea5e9, #0369a1);
+    background: linear-gradient(to right, #0369a1, #0ea5e9);
     color: white;
     border: none;
     padding: 8px 24px;
