@@ -107,6 +107,8 @@ const biomassFireFrames = Array.from(
           <div class="bio-turbine">
             <span class="bio-turbine-dot bio-turbine-inlet"></span>
             <span class="bio-turbine-dot bio-turbine-outlet"></span>
+            <span class="bio-t-ring"></span>
+            <span class="bio-t-ring bio-t-ring-2"></span>
             <div class="bio-rotor">
               <span v-for="n in 6" :key="n" class="bio-blade" :style="`--r:${(n-1)*60}deg`"></span>
               <span class="bio-hub"></span>
@@ -594,7 +596,17 @@ const biomassFireFrames = Array.from(
   z-index: 2;
   display: block;
 }
-
+.bio-t-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(103,232,249,.35);
+  width: 104px;
+  height: 104px;
+  animation: bio-t-ring-expand 2s ease-out infinite;
+  pointer-events: none;
+  display: block;
+}
+.bio-t-ring-2 { animation-delay: 1s; }
 /* ═══ SHAFT ══════════════════════════════════════════ */
 .bio-shaft-wrap {
   width: 100%;
@@ -862,6 +874,10 @@ const biomassFireFrames = Array.from(
   to   { stroke-dashoffset: 0; }
 }
 @keyframes bio-spin { to { transform: rotate(360deg); } }
+@keyframes bio-t-ring-expand {
+  0%   { transform: scale(1);    opacity: .55; }
+  100% { transform: scale(1.38); opacity: 0; }
+}
 @keyframes bio-sdot-move {
   from { left: -10%; opacity: 0; }
   15%  { opacity: 1; }

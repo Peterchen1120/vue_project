@@ -22,36 +22,6 @@
     <!-- 這裡顯示 HomeView / MapView / QuizView 等頁面 -->
     <RouterView />
 
-    <!-- 右側浮動地圖 Tab -->
-    <button class="map-tab" :class="{ open: mapOpen }" @click="mapOpen = !mapOpen" aria-label="開啟範例地圖">
-      <span class="map-tab-icon">🗺</span>
-      <span class="map-tab-label">範例地圖</span>
-    </button>
-
-    <!-- 右側地圖抽屜 -->
-    <Transition name="map-drawer">
-      <aside v-if="mapOpen" class="map-drawer" role="complementary" aria-label="範例地圖">
-        <div class="map-drawer-header">
-          <span class="map-drawer-title">🌊 Energy Magic Islands</span>
-          <div class="map-drawer-actions">
-            <a :href="mapDemoUrl" target="_blank" class="map-open-new" title="在新分頁開啟">↗</a>
-            <button class="map-close-btn" @click="mapOpen = false" aria-label="關閉">✕</button>
-          </div>
-        </div>
-        <iframe
-          :src="mapDemoUrl"
-          class="map-iframe"
-          title="Energy Magic Islands Demo"
-          loading="lazy"
-          referrerpolicy="same-origin"
-        ></iframe>
-      </aside>
-    </Transition>
-
-    <!-- 點擊背景關閉 -->
-    <Transition name="overlay-fade">
-      <div v-if="mapOpen" class="map-overlay" @click="mapOpen = false"></div>
-    </Transition>
 
     <!-- 頁尾區塊 -->
     <footer id="footer">
@@ -97,8 +67,6 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue'
 
-const mapOpen = ref(false)
-const mapDemoUrl = '/energy-map-demo/index.html'
 
 const navItems = [
   { text: 'SDG 7 介紹', to: '/sdg7' },
@@ -311,132 +279,6 @@ const footerLinks = [
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
   }
 
-  /* ── 右側地圖 Tab ───────────────────────────────── */
-  .map-tab {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    z-index: 200;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding: 14px 10px;
-    background: linear-gradient(180deg, var(--color-primary), var(--color-primary-2));
-    color: #fff;
-    border: none;
-    border-radius: 14px 0 0 14px;
-    cursor: pointer;
-    box-shadow: -4px 0 24px rgba(2, 132, 199, 0.28);
-    transition: padding 0.25s, box-shadow 0.25s, background 0.25s;
-  }
-  .map-tab:hover {
-    padding-right: 16px;
-    box-shadow: -6px 0 32px rgba(2, 132, 199, 0.4);
-  }
-  .map-tab.open {
-    background: linear-gradient(180deg, #0369a1, #0284c7);
-  }
-  .map-tab-icon { font-size: 1.3rem; line-height: 1; }
-  .map-tab-label {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 1px;
-    white-space: nowrap;
-  }
-
-  /* ── 右側抽屜 ───────────────────────────────────── */
-  .map-drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: min(520px, 92vw);
-    height: 100vh;
-    z-index: 300;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    box-shadow: -8px 0 48px rgba(15, 23, 42, 0.22);
-    border-left: 1px solid rgba(14, 165, 233, 0.15);
-  }
-  .map-drawer-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-    border-bottom: 1px solid rgba(14, 165, 233, 0.15);
-    flex-shrink: 0;
-  }
-  .map-drawer-title {
-    font-size: 0.95rem;
-    font-weight: 900;
-    color: var(--color-primary);
-  }
-  .map-drawer-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .map-open-new {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    background: rgba(14, 165, 233, 0.1);
-    color: var(--color-primary);
-    font-size: 1rem;
-    font-weight: 900;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .map-open-new:hover { background: rgba(14, 165, 233, 0.2); }
-  .map-close-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    border: none;
-    background: rgba(15, 23, 42, 0.07);
-    color: #475569;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .map-close-btn:hover { background: rgba(15, 23, 42, 0.14); }
-  .map-iframe {
-    flex: 1;
-    width: 100%;
-    border: none;
-    display: block;
-  }
-
-  /* 背景遮罩 */
-  .map-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 250;
-    background: rgba(15, 23, 42, 0.28);
-    backdrop-filter: blur(2px);
-  }
-
-  /* ── 動畫 ────────────────────────────────────────── */
-  .map-drawer-enter-active,
-  .map-drawer-leave-active { transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1); }
-  .map-drawer-enter-from,
-  .map-drawer-leave-to    { transform: translateX(100%); }
-
-  .overlay-fade-enter-active,
-  .overlay-fade-leave-active { transition: opacity 0.28s ease; }
-  .overlay-fade-enter-from,
-  .overlay-fade-leave-to    { opacity: 0; }
 
   /* App 共用 RWD */
   @media (max-width: 768px) {

@@ -147,6 +147,8 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
           <div class="nuc-turbine">
             <span class="nuc-turbine-dot nuc-turbine-inlet"></span>
             <span class="nuc-turbine-dot nuc-turbine-outlet"></span>
+            <span class="nuc-t-ring"></span>
+            <span class="nuc-t-ring nuc-t-ring-2"></span>
             <div class="nuc-rotor">
               <span v-for="n in 6" :key="n" class="nuc-blade" :style="`--r:${(n-1)*60}deg`"></span>
               <span class="nuc-hub"></span>
@@ -594,7 +596,17 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   z-index: 2;
   display: block;
 }
-
+.nuc-t-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(103,232,249,.35);
+  width: 104px;
+  height: 104px;
+  animation: nuc-t-ring-expand 2s ease-out infinite;
+  pointer-events: none;
+  display: block;
+}
+.nuc-t-ring-2 { animation-delay: 1s; }
 /* ═══ SHAFT ═══════════════════════════════════════════ */
 .nuc-shaft-wrap {
   width: 100%;
@@ -827,6 +839,10 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   to   { stroke-dashoffset: 0; }
 }
 @keyframes nuc-spin { to { transform: rotate(360deg); } }
+@keyframes nuc-t-ring-expand {
+  0%   { transform: scale(1);    opacity: .55; }
+  100% { transform: scale(1.38); opacity: 0; }
+}
 @keyframes nuc-sdot-move {
   from { left: -10%; opacity: 0; }
   15%  { opacity: 1; }

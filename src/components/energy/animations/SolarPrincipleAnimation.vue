@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
             <!-- 玻璃光澤 -->
             <div class="sl-panel-sheen"></div>
             <!-- 掃光動畫 -->
-            <div class="sl-panel-sweep"></div>
+            <!-- <div class="sl-panel-sweep"></div> -->
           </div>
         </div>
         <p class="sl-lbl">太陽能板</p>

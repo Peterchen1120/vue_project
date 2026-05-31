@@ -103,6 +103,8 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
           <div class="geo-turbine">
             <span class="geo-turbine-dot geo-turbine-inlet"></span>
             <span class="geo-turbine-dot geo-turbine-outlet"></span>
+            <span class="geo-t-ring"></span>
+            <span class="geo-t-ring geo-t-ring-2"></span>
             <div class="geo-rotor">
               <span v-for="n in 6" :key="n" class="geo-blade" :style="`--r:${(n-1)*60}deg`"></span>
               <span class="geo-hub"></span>
@@ -564,6 +566,17 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   z-index: 2;
   display: block;
 }
+.geo-t-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(103,232,249,.35);
+  width: 104px;
+  height: 104px;
+  animation: geo-t-ring-expand 2s ease-out infinite;
+  pointer-events: none;
+  display: block;
+}
+.geo-t-ring-2 { animation-delay: 1s; }
 
 /* ═══ SHAFT ══════════════════════════════════════════ */
 .geo-shaft-wrap {
@@ -829,6 +842,10 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   to   { stroke-dashoffset: 0; }
 }
 @keyframes geo-spin { to { transform: rotate(360deg); } }
+@keyframes geo-t-ring-expand {
+  0%   { transform: scale(1);    opacity: .55; }
+  100% { transform: scale(1.38); opacity: 0; }
+}
 @keyframes geo-sdot-move {
   from { left: -10%; opacity: 0; }
   15%  { opacity: 1; }

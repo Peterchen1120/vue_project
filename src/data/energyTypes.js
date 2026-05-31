@@ -1,10 +1,9 @@
-import waterImg from '@/assets/water.jpg'
-import sunImg from '@/assets/sun.png'
-// TODO: 請替換成正式圖片
-const windImg    = sunImg
-const biomassImg = waterImg
-const geoImg     = waterImg
-const nuclearImg = sunImg
+import waterImg   from '@/assets/water.jpg'
+import sunImg     from '@/assets/sun.png'
+import windImg    from '@/assets/wind.jpg'
+import biomassImg from '@/assets/biomass.jpg'
+import geoImg     from '@/assets/geo.jpg'
+import nuclearImg from '@/assets/nuclear.jpg'
 
 export const energyTypes = {
   hydro: {
@@ -248,17 +247,18 @@ export const energyTypes = {
     label: 'RENEWABLE ENERGY SERIES',
     title: '太陽能發電：把陽光轉成電力',
     description:
-      '太陽能發電透過太陽能板將光能轉換成電能。它適合設置在屋頂、空地與大型太陽能電廠，是近年成長最快的再生能源之一。',
+      '太陽能發電利用太陽能板中的半導體材料，將光能直接轉換成電能。它無需燃料、無噪音、幾乎零碳排，可分散佈建於屋頂、農地與大型電廠，是近年全球成長最快、裝置量最大的再生能源技術。',
     image: sunImg,
     themeColor: '#b7791f',
     gradient: 'linear-gradient(135deg, #fff7d6, #fffaf0)',
     accentGradient: 'linear-gradient(135deg, #ffe08a, #f9b233)',
     activeTextColor: '#5a3b00',
     features: [
-      { title: '乾淨能源', text: '發電時不產生空氣污染，適合分散式能源應用。' },
-      { title: '建置彈性', text: '可設置於屋頂、農地、停車棚與大型電廠。' }
+      { title: '乾淨零排放', text: '發電過程不燃燒任何燃料，運轉期間幾乎零碳排放與零空氣污染。全生命週期碳排放約 20–50 g CO₂/kWh，隨技術進步持續降低，是最環保的發電方式之一。' },
+      { title: '建置靈活', text: '模組化設計使太陽能板可安裝於住宅屋頂、農業棚架、停車場遮陽棚乃至大型地面電廠，不受地形限制，適合分散式能源佈建，降低長距離輸電損耗。' }
     ],
-    fact: '台灣 2024 年太陽光電裝置容量突破 17 GW，已成為再生能源的最大主力，占再生能源發電量約 45%。',
+    factTagline: '台灣每年有超過 2,000 小時的日照，讓太陽能成為主力',
+    fact: '台灣 2024 年太陽光電累積裝置容量突破 17 GW，躍升為最大單一再生能源，占整體再生能源發電量約 45%。台灣年均日照時數超過 2,000 小時，南部地區更可達 2,400 小時以上，加上屋頂面積廣大、農業用地可兼用，為持續擴展太陽能提供了充裕的空間與條件。',
     principle: {
       label: 'Solar Power',
       title: '太陽能發電：把光子變成電子',
