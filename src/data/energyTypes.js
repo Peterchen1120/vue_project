@@ -1,5 +1,5 @@
 import waterImg   from '@/assets/water.jpg'
-import sunImg     from '@/assets/sun.png'
+import sunImg     from '@/assets/sun.jpg'
 import windImg    from '@/assets/wind.jpg'
 import biomassImg from '@/assets/biomass.jpg'
 import geoImg     from '@/assets/geo2.jpg'
