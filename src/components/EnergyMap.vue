@@ -203,7 +203,7 @@ const emit  = defineEmits(['select-energy'])
 // tip: tooltip anchor position as % of map size, placed just outside the island
 const islands = [
   { key: 'wind',        label: '風力島',   tip: { x: 23.3, y: 47.0 }, path: 'M70 265 L250 134 L489 94 L664 216 L710 354 L598 421 L378 414 L178 355 Z' },
-  { key: 'hydro',       label: '水力島',   tip: { x: 54.5, y: 43.5 }, path: 'M682 200 L842 60 L1068 58 L1234 191 L1242 332 L1110 391 L860 382 L706 306 Z' },
+  { key: 'hydro',       label: '水力島',   tip: { x: 57.5, y: 45.7 }, path: 'M682 200 L842 60 L1068 58 L1234 191 L1242 332 L1110 391 L860 382 L706 306 Z' },
   { key: 'solar',       label: '太陽能島', tip: { x: 83.6, y: 29.8 }, path: 'M1182 381 L1304 314 L1450 300 L1610 380 L1618 486 L1490 544 L1276 514 L1176 454 Z' },
   { key: 'nuclear',     label: '核能島',   tip: { x: 19.7, y: 77.6 }, path: 'M105 548 L232 470 L391 488 L535 548 L558 658 L439 710 L226 708 L100 632 Z' },
   { key: 'biomass',     label: '生質能島', tip: { x: 46.3, y: 59.8 }, path: 'M548 687 L681 611 L895 582 L1031 656 L1007 819 L854 889 L636 839 L518 760 Z' },
