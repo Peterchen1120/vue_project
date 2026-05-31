@@ -1,10 +1,33 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import transmissionTower from '@/assets/energy/transmission-tower.svg'
 
-const biomassFireFrames = Array.from(
-  { length: 18 },
-  (_, index) => `/fire_generated_frames/fire_${String(index).padStart(2, '0')}.png`,
-)
+const FRAME_COUNT = 18
+const FRAME_MS    = 150  // ~6.7 fps
+
+const fireImgRef = ref(null)
+let frameIndex   = 0
+let timerId      = null
+
+// 預載所有幀，避免第一輪播放時出現空白
+const frames = Array.from({ length: FRAME_COUNT }, (_, i) => {
+  const img = new Image()
+  img.src = `/fire_generated_frames/fire_${String(i).padStart(2, '0')}.png`
+  return img
+})
+
+onMounted(() => {
+  timerId = setInterval(() => {
+    frameIndex = (frameIndex + 1) % FRAME_COUNT
+    if (fireImgRef.value) {
+      fireImgRef.value.src = frames[frameIndex].src
+    }
+  }, FRAME_MS)
+})
+
+onUnmounted(() => {
+  clearInterval(timerId)
+})
 </script>
 
 <template>
@@ -60,12 +83,10 @@ const biomassFireFrames = Array.from(
             </div>
             <div class="bio-flames" aria-hidden="true">
               <img
-                v-for="(frame, index) in biomassFireFrames"
-                :key="frame"
-                :src="frame"
+                ref="fireImgRef"
+                :src="frames[0].src"
                 alt=""
                 class="bio-fire-frame"
-                :style="`--frame:${index}`"
                 aria-hidden="true"
               />
             </div>
@@ -454,10 +475,7 @@ const biomassFireFrames = Array.from(
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
-  opacity: 0;
   filter: drop-shadow(0 0 5px rgba(251,191,36,.65));
-  animation: bio-fire-frame-cycle 2.97s steps(1, end) infinite;
-  animation-delay: calc(var(--frame) * -165ms);
 }
 
 .bio-fuel-bed {
@@ -824,10 +842,6 @@ const biomassFireFrames = Array.from(
 @keyframes bio-fdash {
   from { stroke-dashoffset: 36; }
   to   { stroke-dashoffset: 0; }
-}
-@keyframes bio-fire-frame-cycle {
-  0%, 5.555% { opacity: 1; }
-  5.556%, 100% { opacity: 0; }
 }
 @keyframes bio-smoke-rise {
   0% {
