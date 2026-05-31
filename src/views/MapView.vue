@@ -133,7 +133,7 @@ function closeModal() {
 .energy-btn { border: none; padding: 16px 36px; border-radius: 999px; font-size: 1.05rem; font-weight: 900; cursor: pointer; color: white; transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease; }
 .energy-btn:hover { transform: translateY(-6px) scale(1.06); filter: brightness(1.08); }
 .energy-btn:active { transform: translateY(-2px) scale(0.98); }
-.hydro-btn    { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2)); box-shadow: 0 10px 24px rgba(2,132,199,0.26); }
+.hydro-btn    { background: linear-gradient(to right, #0ea5e9, #0369a1); box-shadow: 0 10px 24px rgba(2,132,199,0.26); }
 .solar-btn    { background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2)); color: #3f2d00; box-shadow: 0 10px 24px rgba(245,158,11,0.28); }
 .wind-btn     { background: linear-gradient(135deg, #7eb8f5, #2563a8); box-shadow: 0 10px 24px rgba(37,99,168,0.26); }
 .biomass-btn  { background: linear-gradient(135deg, #52c47a, #1f7a46); box-shadow: 0 10px 24px rgba(31,122,70,0.26); }
