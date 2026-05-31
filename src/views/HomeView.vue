@@ -279,7 +279,7 @@
 }
 
 .btn-explore {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+  background: linear-gradient(to right, #0ea5e9, #0369a1);
   color: white;
   box-shadow: 0 10px 22px rgba(2, 132, 199, 0.22);
 }

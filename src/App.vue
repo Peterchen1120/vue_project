@@ -24,7 +24,7 @@
 
 
     <!-- 頁尾區塊 -->
-    <footer id="footer">
+    <footer v-if="showFooter" id="footer">
       <div class="footer-content">
         <div class="footer-info-group">
           <div class="footer-col">
@@ -63,8 +63,11 @@
 </template>
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { ref, computed } from 'vue'
+
+const route = useRoute()
+const showFooter = computed(() => route.name !== 'quiz')
 
 
 const navItems = [
@@ -150,7 +153,7 @@ const footerLinks = [
   }
 
   .login-btn {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+    background: linear-gradient(to right, #0ea5e9, #0369a1);
     color: white;
     border: none;
     padding: 8px 24px;

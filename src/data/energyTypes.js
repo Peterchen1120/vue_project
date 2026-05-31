@@ -2,7 +2,7 @@ import waterImg   from '@/assets/water.jpg'
 import sunImg     from '@/assets/sun.png'
 import windImg    from '@/assets/wind.jpg'
 import biomassImg from '@/assets/biomass.jpg'
-import geoImg     from '@/assets/geo.jpg'
+import geoImg     from '@/assets/geo2.jpg'
 import nuclearImg from '@/assets/nuclear.jpg'
 
 export const energyTypes = {

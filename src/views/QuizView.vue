@@ -1,7 +1,35 @@
 <template>
   <main class="quiz-page">
+    <button v-if="!showIntro && !isFinished"
+            class="back-btn" type="button" @click="showIntro = true">
+      ← 返回
+    </button>
     <section class="quiz-card">
-      <template v-if="!isFinished">
+
+      <!-- ── 前導頁面 ── -->
+      <template v-if="showIntro">
+        <div class="intro-wrap">
+          <img :src="windImg" alt="" class="intro-bg-img" aria-hidden="true" />
+          <div class="intro-content">
+            <p class="intro-eyebrow">ENERGY KNOWLEDGE QUIZ</p>
+            <h1 class="intro-title">能源知識大挑戰</h1>
+            <p class="intro-desc">
+              你對風力、太陽能、水力、地熱、核能了解多少？<br>
+              共 <strong>10 題</strong>，每題 10 分，測試你的能源知識。
+            </p>
+            <ul class="intro-rules">
+              <li><span class="rule-icon">📋</span>題目從題庫隨機抽取</li>
+              <li><span class="rule-icon">⏱</span>答錯不會扣你網頁設計的分數</li>
+              <li><span class="rule-icon">✅</span>作答後立即顯示解答</li>
+            </ul>
+            <button class="start-btn" type="button" @click="beginQuiz">
+              開始測驗
+            </button>
+          </div>
+        </div>
+      </template>
+
+      <template v-else-if="!isFinished">
         <p class="quiz-progress">題目 {{ questionIndex + 1 }} / {{ totalQuestions }}</p>
 
         <h1 class="quiz-question">
@@ -25,6 +53,13 @@
           {{ feedbackText }}
         </p>
 
+        <Transition name="explanation-fade">
+          <div v-if="hasAnswered" class="explanation-box">
+            <span class="explanation-label">💡 詳解</span>
+            <p>{{ currentQuestion?.explanation }}</p>
+          </div>
+        </Transition>
+
         <button
           v-if="hasAnswered"
           class="next-btn"
@@ -35,7 +70,7 @@
         </button>
       </template>
 
-      <template v-else>
+      <template v-else-if="isFinished">
         <div class="result-content">
           <p class="result-eyebrow">測驗完成</p>
           <h1>你的得分是</h1>
@@ -61,14 +96,16 @@
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { questionBank } from '../data/questions'
+import windImg from '@/assets/wind.jpg'
 
 const totalQuestions = 10
+const showIntro = ref(true)
 const currentQuizData = ref([])
 const questionIndex = ref(0)
 const score = ref(0)
 const selectedIndex = ref(null)
 const hasAnswered = ref(false)
-const isFinished = ref(false)
+const isFinished  = ref(false)
 
 const currentQuestion = computed(() => currentQuizData.value[questionIndex.value])
 
@@ -93,6 +130,11 @@ function shuffleQuestions() {
   return [...questionBank].sort(() => Math.random() - 0.5)
 }
 
+function beginQuiz() {
+  startQuiz()
+  showIntro.value = false
+}
+
 function startQuiz() {
   currentQuizData.value = shuffleQuestions().slice(0, totalQuestions)
   questionIndex.value = 0
@@ -111,6 +153,7 @@ function selectAnswer(index) {
   if (index === currentQuestion.value.a) {
     score.value += 10
   }
+
 }
 
 function nextQuestion() {
@@ -124,6 +167,7 @@ function nextQuestion() {
   questionIndex.value += 1
   selectedIndex.value = null
   hasAnswered.value = false
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 function finishQuiz() {
@@ -131,7 +175,7 @@ function finishQuiz() {
 }
 
 function restartQuiz() {
-  startQuiz()
+  showIntro.value = true
 }
 
 function getOptionClass(index) {
@@ -143,14 +187,16 @@ function getOptionClass(index) {
 }
 
 onMounted(() => {
-  startQuiz()
+  // 題庫預先準備好，但不立即開始計分
+  currentQuizData.value = shuffleQuestions().slice(0, totalQuestions)
 })
 </script>
 
 <style scoped>
 .quiz-page {
+  position: relative;
   min-height: 72vh;
-  padding: 80px 20px;
+  padding: 50px 20px 80px;
   background:
     radial-gradient(circle at top left, rgba(224, 242, 254, 0.86), transparent 30%),
     radial-gradient(circle at 88% 14%, rgba(250, 204, 21, 0.2), transparent 24%),
@@ -161,8 +207,8 @@ onMounted(() => {
 }
 
 .quiz-card {
+  position: relative;
   width: min(680px, 100%);
-  min-height: 520px;
   background: var(--color-surface);
   border-radius: 24px;
   padding: 42px;
@@ -170,6 +216,136 @@ onMounted(() => {
   box-shadow: var(--shadow-soft);
   border: 1px solid rgba(14, 165, 233, 0.14);
   backdrop-filter: blur(14px);
+}
+
+/* ── 返回按鈕 ── */
+.back-btn {
+  position: absolute;
+  top: 28px;
+  left: 40px;
+  background: linear-gradient(to right, #0ea5e9, #0369a1);
+  color: #fff;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(2, 132, 199, 0.16);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.back-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(2, 132, 199, 0.26);
+}
+
+/* ── 前導頁面 ── */
+.intro-wrap {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.intro-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.10;
+  pointer-events: none;
+  border-radius: 18px;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 10px 8px;
+}
+
+.intro-eyebrow {
+  color: var(--color-primary-2);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.intro-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.intro-desc {
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 440px;
+  margin: 0;
+}
+
+.intro-desc strong {
+  color: var(--color-primary);
+}
+
+.intro-rules {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.intro-rules li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.rule-icon {
+  display: inline-block;
+  width: 1.4em;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.start-btn {
+  margin-top: 12px;
+  padding: 14px 48px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(to right, #0ea5e9, #0369a1);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(2, 132, 199, 0.36);
 }
 
 .quiz-progress {
@@ -180,8 +356,8 @@ onMounted(() => {
 }
 
 .quiz-question {
-  min-height: 96px;
-  margin-bottom: 30px;
+  margin-top: 0;
+  margin-bottom: 48px;
   color: var(--color-text);
   font-size: 1.45rem;
   line-height: 1.6;
@@ -197,7 +373,7 @@ onMounted(() => {
 }
 
 .option-btn {
-  min-height: 72px;
+  min-height: 88px;
   background-color: rgba(255, 255, 255, 0.82);
   border: 2px solid rgba(14, 165, 233, 0.12);
   padding: 16px;
@@ -268,11 +444,50 @@ onMounted(() => {
   text-decoration: none;
 }
 
+.explanation-box {
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(224, 242, 254, 0.6);
+  border-left: 4px solid var(--color-primary-2);
+  text-align: left;
+}
+
+.explanation-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 900;
+  color: var(--color-primary-2);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.explanation-box p {
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.explanation-fade-enter-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.explanation-fade-enter-from {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
 .next-btn {
-  margin-top: 24px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-2));
+  position: absolute;
+  top: 27px;
+  right: 20px;
+  margin-top: 0;
+  padding: 10px 22px;
+  min-height: unset;
+  font-size: 0.9rem;
+  background: #10b981;
   color: #ffffff;
-  box-shadow: 0 10px 22px rgba(2, 132, 199, 0.22);
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.28);
 }
 
 .result-content {
