@@ -41,12 +41,16 @@ import HydroPrincipleAnimation from './animations/HydroPrincipleAnimation.vue'
 import SolarPrincipleAnimation from './animations/SolarPrincipleAnimation.vue'
 import WindPrincipleAnimation from './animations/WindPrincipleAnimation.vue'
 import BiomassPrincipleAnimation from './animations/BiomassPrincipleAnimation.vue'
+import GeothermalPrincipleAnimation from './animations/GeothermalPrincipleAnimation.vue'
+import NuclearPrincipleAnimation from './animations/NuclearPrincipleAnimation.vue'
 
 const animationComponents = {
   hydro:   HydroPrincipleAnimation,
   solar:   SolarPrincipleAnimation,
   wind:    WindPrincipleAnimation,
   biomass: BiomassPrincipleAnimation,
+  geo:     GeothermalPrincipleAnimation,
+  nuclear: NuclearPrincipleAnimation,
 }
 
 defineProps({

@@ -74,7 +74,7 @@
     <!-- ══ Tab 02：歷年趨勢 ══ -->
     <div v-show="activeTab === 'trend'" class="wind-tab-content">
       <div class="wind-block-title-bar">
-        <h3 class="wind-block-title">台灣風力發電歷年趨勢（2020–2025）</h3>
+        <h3 class="wind-block-title">台灣風力發電歷年趨勢（2006–2025）</h3>
       </div>
       <div class="wind-card">
         <div class="wind-trend-pair">
@@ -91,9 +91,9 @@
             </div>
           </div>
         </div>
-        <p class="wind-card-desc">台灣風力發電在近年呈現明顯增長。2020 年風力發電量約 2,309 GWh，至 2025 年已達 12,202.451 GWh，約為 2020 年的五倍以上。風力占再生能源發電量的比例，也由 2020 年的 15.20% 提升至 2025 年的 32.27%。這波成長的核心，是由離岸風電帶動，而非陸上風機增加。</p>
+        <p class="wind-card-desc">近 20 年資料顯示，台灣風力發電量由 2006 年的 276.1 GWh，增加至 2025 年的 12,202.451 GWh，約成長 44 倍。風力占再生能源發電量的比例，也由 2006 年的 3.57% 提升至 2025 年的 32.27%。2011 年前後陸域風電已具規模，但 2023 年後的快速上升，主要由離岸風電商轉帶動。</p>
         <p class="wind-source">
-          資料來源（2020–2024）：<a href="https://www.ly.gov.tw/Pages/Detail.aspx?nodeid=56084&pid=253282" target="_blank" rel="noopener noreferrer">立法院預算中心｜我國推動能源轉型及穩定供電相關計畫執行概況之探討（原始資料來源：經濟部能源署能源統計月報）</a>；
+          資料來源（2006–2024）：<a href="https://www.esist.org.tw/attachments/handbook/2024/ebook/2024EnergyStaHandBook.pdf" target="_blank" rel="noopener noreferrer">經濟部能源署｜2024 能源統計手冊：再生能源發電量（數量／占比）</a>；
           2025 年：<a href="https://www.taipower.com.tw/2289/2363/2380/2383/10556/normalPost" target="_blank" rel="noopener noreferrer">台灣電力公司｜再生能源發展概況</a>
         </p>
       </div>
@@ -360,6 +360,11 @@
           </a>
         </li>
         <li>
+          <a href="https://www.esist.org.tw/attachments/handbook/2024/ebook/2024EnergyStaHandBook.pdf" target="_blank" rel="noopener noreferrer">
+            經濟部能源署｜2024 能源統計手冊（2006–2024 年再生能源發電量、風力發電量與風力占再生能源發電量比例）
+          </a>
+        </li>
+        <li>
           <a href="https://www.ly.gov.tw/Pages/Detail.aspx?nodeid=56084&pid=253282" target="_blank" rel="noopener noreferrer">
             立法院預算中心｜我國推動能源轉型及穩定供電相關計畫執行概況之探討（2020–2024 年陸域／離岸風電裝置容量與發電量；原始資料來源：經濟部能源署能源統計月報）
           </a>
@@ -481,8 +486,8 @@ function initRenewableChart() {
 function initTrendGwhChart() {
   const ctx = trendGwhChartRef.value
   if (!ctx) return
-  const years = [2020, 2021, 2022, 2023, 2024, 2025]
-  const gwh   = [2309, 2270, 3578, 6238, 10509, 12202.451]
+  const years = [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+  const gwh   = [276.1, 439.5, 588.3, 786.6, 1026.3, 1492.7, 1413.5, 1640.0, 1500.5, 1525.2, 1457.1, 1722.5, 1709.5, 1892.2, 2308.9, 2270.8, 3577.5, 6238.3, 10509.8, 12202.451]
   trendGwhChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -493,7 +498,7 @@ function initTrendGwhChart() {
         borderColor: 'rgba(6,182,212,0.9)',
         backgroundColor: 'rgba(6,182,212,0.12)',
         borderWidth: 2.5,
-        pointRadius: 4,
+        pointRadius: 3,
         pointHoverRadius: 7,
         pointBackgroundColor: 'rgba(6,182,212,1)',
         pointBorderColor: '#fff',
@@ -509,7 +514,7 @@ function initTrendGwhChart() {
       interaction: { mode: 'index', intersect: false },
       scales: {
         x: {
-          ticks: { font: { size: 11 }, color: '#64748b' },
+          ticks: { autoSkip: true, maxTicksLimit: 8, maxRotation: 0, font: { size: 11 }, color: '#64748b' },
           grid: { color: 'rgba(148,163,184,0.1)' },
           border: { color: 'transparent' }
         },
@@ -531,8 +536,8 @@ function initTrendGwhChart() {
 function initTrendPctChart() {
   const ctx = trendPctChartRef.value
   if (!ctx) return
-  const years = [2020, 2021, 2022, 2023, 2024, 2025]
-  const pct   = [15.20, 12.95, 14.98, 23.11, 30.99, 32.27]
+  const years = [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+  const pct   = [3.57, 5.28, 7.12, 10.07, 11.88, 16.61, 13.26, 15.10, 15.12, 14.56, 11.44, 13.93, 13.51, 12.39, 15.20, 12.95, 14.98, 23.11, 30.99, 32.27]
   trendPctChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -543,7 +548,7 @@ function initTrendPctChart() {
         borderColor: 'rgba(8,145,178,0.9)',
         backgroundColor: 'rgba(8,145,178,0.1)',
         borderWidth: 2.5,
-        pointRadius: 4,
+        pointRadius: 3,
         pointHoverRadius: 7,
         pointBackgroundColor: 'rgba(8,145,178,1)',
         pointBorderColor: '#fff',
@@ -559,7 +564,7 @@ function initTrendPctChart() {
       interaction: { mode: 'index', intersect: false },
       scales: {
         x: {
-          ticks: { font: { size: 11 }, color: '#64748b' },
+          ticks: { autoSkip: true, maxTicksLimit: 8, maxRotation: 0, font: { size: 11 }, color: '#64748b' },
           grid: { color: 'rgba(148,163,184,0.1)' },
           border: { color: 'transparent' }
         },

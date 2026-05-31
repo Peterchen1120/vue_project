@@ -1,10 +1,9 @@
-import waterImg from '@/assets/water.jpg'
-import sunImg from '@/assets/sun.png'
-// TODO: 請替換成正式圖片
-const windImg    = sunImg
-const biomassImg = waterImg
-const geoImg     = waterImg
-const nuclearImg = sunImg
+import waterImg   from '@/assets/water.jpg'
+import sunImg     from '@/assets/sun.png'
+import windImg    from '@/assets/wind.jpg'
+import biomassImg from '@/assets/biomass.jpg'
+import geoImg     from '@/assets/geo.jpg'
+import nuclearImg from '@/assets/nuclear.jpg'
 
 export const energyTypes = {
   hydro: {
@@ -172,7 +171,28 @@ export const energyTypes = {
     ],
     factTagline: '台灣地底下藏著不輸冰島的地熱潛力',
     fact: '台灣位於歐亞板塊與菲律賓海板塊的碰撞帶上，地熱梯度高，宜蘭清水、大屯山等地的地熱資源溫度可達攝氏 200 度以上。若全面開發潛在地熱資源，估計可提供台灣目前用電量的數個百分比，且幾乎不排放溫室氣體。',
-    principle: null
+    principle: {
+      label: 'Geothermal Power',
+      title: '地熱發電：從大地深處汲取穩定熱能',
+      subtitle: '地殼深處的高溫蒸汽或熱水被引導至地面，推動渦輪機旋轉，再帶動發電機產生電力。',
+      principleText:
+        '地球內部的放射性物質衰變與原始熱能，使地殼深處保持極高溫度。鑽井穿透地層後，地底的高溫蒸汽或熱水沿井管上升至地面的蒸汽分離器，分離出乾燥蒸汽後送入渦輪機推動葉片旋轉，形成機械能。渦輪機帶動發電機轉子，透過電磁感應產生電流，最終升壓送入電網。與太陽能和風力不同，這個過程不受天氣影響，可全年 24 小時穩定輸出。',
+      steps: [
+        { title: '地底熱源', description: '地球內部放射性衰變與殘餘熔岩熱能，使地殼深處岩層維持數百度高溫，成為取之不盡的天然熱源。' },
+        { title: '鑽井取熱', description: '透過鑽井技術深入地層，高溫蒸汽或熱水沿井管自然上湧至地面，將地底的熱能帶到地表。' },
+        { title: '蒸汽分離', description: '地熱流體進入蒸汽分離器，分離出乾燥飽和蒸汽，去除水分與雜質，確保進入渦輪的蒸汽品質穩定。' },
+        { title: '驅動渦輪', description: '高壓蒸汽衝擊渦輪葉片，推動渦輪機高速旋轉，將熱能轉換為機械能，再透過傳動軸帶動發電機。' },
+        { title: '發電輸出', description: '發電機轉子旋轉，磁場切割線圈產生交流電，升壓後送入輸電系統；冷凝後的水回注地層，形成永續循環。' }
+      ],
+      keyPoints: [
+        '全天候穩定、不受天氣影響',
+        '幾乎零碳排放',
+        '初期鑽探成本高',
+        '台灣潛力龐大但開發仍屬初期'
+      ],
+      energyFlow: ['地熱能', '熱能', '動能', '機械能', '電能'],
+      animationType: 'geo'
+    }
   },
 
   nuclear: {
@@ -198,7 +218,28 @@ export const energyTypes = {
     ],
     factTagline: '核能的碳排放量，其實跟風電差不多',
     fact: '根據聯合國政府間氣候變遷專門委員會（IPCC）的評估，核能發電的生命週期碳排放中位數約為每度電 12 克 CO₂，與陸域風電（11 g）幾乎相同，遠低於天然氣（490 g）與燃煤（820 g）。這讓核能成為在氣候科學領域普遍被認可的低碳電力來源之一。',
-    principle: null
+    principle: {
+      label: 'Nuclear Power',
+      title: '核能發電：用核分裂的熱，推動同一套渦輪系統',
+      subtitle: '鈾燃料棒在反應爐中產生核分裂連鎖反應，釋放的熱能加熱冷卻水產生蒸汽，推動渦輪機與發電機，最終送出電力。',
+      principleText:
+        '核燃料棒中的鈾-235 原子被中子撞擊後發生核分裂，釋放大量熱能並產生新的中子，引發連鎖反應。這些熱能加熱反應爐中的冷卻水（壓水式）或直接使水沸騰（沸水式），產生高壓蒸汽。蒸汽推動渦輪機旋轉，帶動發電機產生電流，升壓後送入電網。使用後的蒸汽在冷凝器中還原為水，再循環使用。',
+      steps: [
+        { title: '核燃料裝填', description: '鈾-235 燃料製成小型陶瓷顆粒，封裝於鋯合金燃料棒中，數百根燃料棒組成燃料組件置入反應爐。' },
+        { title: '核分裂連鎖', description: '中子撞擊鈾-235 原子核，使其分裂並釋放熱能與 2–3 顆新中子，新中子繼續撞擊其他原子，形成自我維持的連鎖反應。' },
+        { title: '冷卻水產蒸汽', description: '反應爐內的冷卻水吸收核分裂熱能，溫度升至數百度，透過蒸汽產生器將熱能傳遞給二次側水，產生高壓蒸汽。' },
+        { title: '蒸汽驅動渦輪', description: '高壓蒸汽衝擊渦輪葉片，推動渦輪機高速旋轉，將熱能轉換為機械能，再透過傳動軸帶動發電機。' },
+        { title: '發電並輸出', description: '發電機轉子旋轉，透過電磁感應產生交流電，升壓後送入輸電系統；蒸汽在冷凝器冷凝成水後循環再用。' }
+      ],
+      keyPoints: [
+        '高效穩定、容量因數超過 90%',
+        '生命週期碳排放與風電相當',
+        '核廢料處置為長期挑戰',
+        '安全設計持續演進，但公眾接受度仍是關鍵'
+      ],
+      energyFlow: ['核能', '熱能', '動能', '機械能', '電能'],
+      animationType: 'nuclear'
+    }
   },
 
   solar: {
@@ -206,17 +247,18 @@ export const energyTypes = {
     label: 'RENEWABLE ENERGY SERIES',
     title: '太陽能發電：把陽光轉成電力',
     description:
-      '太陽能發電透過太陽能板將光能轉換成電能。它適合設置在屋頂、空地與大型太陽能電廠，是近年成長最快的再生能源之一。',
+      '太陽能發電利用太陽能板中的半導體材料，將光能直接轉換成電能。它無需燃料、無噪音、幾乎零碳排，可分散佈建於屋頂、農地與大型電廠，是近年全球成長最快、裝置量最大的再生能源技術。',
     image: sunImg,
     themeColor: '#b7791f',
     gradient: 'linear-gradient(135deg, #fff7d6, #fffaf0)',
     accentGradient: 'linear-gradient(135deg, #ffe08a, #f9b233)',
     activeTextColor: '#5a3b00',
     features: [
-      { title: '乾淨能源', text: '發電時不產生空氣污染，適合分散式能源應用。' },
-      { title: '建置彈性', text: '可設置於屋頂、農地、停車棚與大型電廠。' }
+      { title: '乾淨零排放', text: '發電過程不燃燒任何燃料，運轉期間幾乎零碳排放與零空氣污染。全生命週期碳排放約 20–50 g CO₂/kWh，隨技術進步持續降低，是最環保的發電方式之一。' },
+      { title: '建置靈活', text: '模組化設計使太陽能板可安裝於住宅屋頂、農業棚架、停車場遮陽棚乃至大型地面電廠，不受地形限制，適合分散式能源佈建，降低長距離輸電損耗。' }
     ],
-    fact: '台灣 2024 年太陽光電裝置容量突破 17 GW，已成為再生能源的最大主力，占再生能源發電量約 45%。',
+    factTagline: '台灣每年有超過 2,000 小時的日照，讓太陽能成為主力',
+    fact: '台灣 2024 年太陽光電累積裝置容量突破 17 GW，躍升為最大單一再生能源，占整體再生能源發電量約 45%。台灣年均日照時數超過 2,000 小時，南部地區更可達 2,400 小時以上，加上屋頂面積廣大、農業用地可兼用，為持續擴展太陽能提供了充裕的空間與條件。',
     principle: {
       label: 'Solar Power',
       title: '太陽能發電：把光子變成電子',

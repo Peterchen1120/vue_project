@@ -15,9 +15,11 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
             <span class="hd-wave" style="--d:0s"></span>
             <span class="hd-wave" style="--d:.9s"></span>
             <span class="hd-wave" style="--d:1.8s"></span>
+            <span class="hd-wave hd-wave-deep" style="--d:.45s"></span>
             <div class="hd-depth-lines">
               <span></span><span></span><span></span>
             </div>
+            <span v-for="b in 5" :key="b" class="hd-bubble" :style="`--bi:${b}`"></span>
           </div>
           <div class="hd-wall">
             <span v-for="i in 10" :key="i" class="hd-brick"></span>
@@ -63,15 +65,24 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
         <div class="hd-turbine-wrap">
           <!-- 水射流 -->
           <div class="hd-jets" aria-hidden="true">
-            <span class="hd-jet" style="--jd:0s;   --jt:36%"></span>
-            <span class="hd-jet" style="--jd:.33s; --jt:50%"></span>
-            <span class="hd-jet" style="--jd:.66s; --jt:64%"></span>
+            <span class="hd-jet" style="--jd:0s;   --jt:30%"></span>
+            <span class="hd-jet" style="--jd:.28s; --jt:44%"></span>
+            <span class="hd-jet" style="--jd:.55s; --jt:56%"></span>
+            <span class="hd-jet" style="--jd:.82s; --jt:70%"></span>
+            <span class="hd-spray-dot" style="--sd:0s;  --sx:-4px; --sy:-8px"></span>
+            <span class="hd-spray-dot" style="--sd:.2s; --sx:6px;  --sy:-6px"></span>
+            <span class="hd-spray-dot" style="--sd:.4s; --sx:-2px; --sy:8px"></span>
+            <span class="hd-spray-dot" style="--sd:.6s; --sx:8px;  --sy:5px"></span>
+            <span class="hd-spray-dot" style="--sd:.8s; --sx:-6px; --sy:3px"></span>
           </div>
           <div class="hd-turbine">
             <!-- 連接點：水管→水輪機 -->
             <span class="hd-turbine-dot hd-turbine-inlet"></span>
             <!-- 連接點：水輪機→傳動軸 -->
             <span class="hd-turbine-dot hd-turbine-outlet"></span>
+            <!-- 旋轉脈衝環 -->
+            <span class="hd-t-ring"></span>
+            <span class="hd-t-ring hd-t-ring-2"></span>
             <div class="hd-rotor">
               <span v-for="n in 6" :key="n" class="hd-blade" :style="`--r:${(n-1)*60}deg`"></span>
               <span class="hd-hub"></span>
@@ -286,6 +297,28 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   animation-delay: var(--d);
   display: block;
 }
+.hd-wave-deep {
+  top: 6px;
+  height: 14px;
+  background: rgba(125,211,252,.45);
+  animation-duration: 3.5s;
+}
+
+/* ─── Bubbles ─────────────────────────────────────── */
+.hd-bubble {
+  position: absolute;
+  width: calc(3px + var(--bi) * 1.5px);
+  height: calc(3px + var(--bi) * 1.5px);
+  border-radius: 50%;
+  background: rgba(186,230,253,.65);
+  border: 1px solid rgba(255,255,255,.5);
+  left: calc(8% + var(--bi) * 16%);
+  bottom: 8px;
+  animation: hd-bubble-rise calc(1.7s + var(--bi) * 0.32s) ease-in infinite;
+  animation-delay: calc(var(--bi) * 0.38s);
+  display: block;
+  pointer-events: none;
+}
 
 .hd-depth-lines {
   position: absolute;
@@ -359,25 +392,52 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
 
 .hd-jets {
   position: absolute;
-  left: -18px;
+  left: -22px;
   top: 0;
   height: 100%;
-  width: 18px;
+  width: 22px;
   pointer-events: none;
 }
 .hd-jet {
   position: absolute;
   top: var(--jt);
   left: 0;
-  width: 15px;
-  height: 3px;
+  width: 20px;
+  height: 4px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, #22d3ee);
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,.7) 40%, #22d3ee);
+  box-shadow: 0 0 5px rgba(34,211,238,.5);
   transform-origin: left center;
   animation: hd-jet 1s ease-out infinite;
   animation-delay: var(--jd);
   display: block;
 }
+/* 噴濺水珠 */
+.hd-spray-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(103,232,249,.85);
+  box-shadow: 0 0 4px rgba(34,211,238,.6);
+  animation: hd-spray calc(0.9s + 0.1s) ease-out infinite;
+  animation-delay: var(--sd);
+  display: block;
+}
+/* 水輪機脈衝環 */
+.hd-t-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(14,165,233,.35);
+  width: 112px;
+  height: 112px;
+  animation: hd-t-ring-expand 2s ease-out infinite;
+  pointer-events: none;
+  display: block;
+}
+.hd-t-ring-2 { animation-delay: 1s; }
 
 .hd-turbine {
   position: relative;
@@ -663,8 +723,22 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
 
 /* ═══ KEYFRAMES ══════════════════════════════════════════ */
 @keyframes hd-wave {
-  0%,100% { transform: translateY(0)   scaleX(1); }
-  50%      { transform: translateY(10px) scaleX(1.06); }
+  0%,100% { transform: translateY(0)    scaleX(1); }
+  50%      { transform: translateY(12px) scaleX(1.08); }
+}
+@keyframes hd-bubble-rise {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: .8; }
+  40%  { transform: translateY(-28px) translateX(2px) scale(1.1); opacity: .65; }
+  80%  { transform: translateY(-65px) translateX(-2px) scale(1.2); opacity: .25; }
+  100% { transform: translateY(-82px) scale(.4); opacity: 0; }
+}
+@keyframes hd-spray {
+  0%   { transform: translate(-50%,-50%) scale(1); opacity: .9; }
+  100% { transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(0); opacity: 0; }
+}
+@keyframes hd-t-ring-expand {
+  0%   { transform: scale(1);    opacity: .55; }
+  100% { transform: scale(1.38); opacity: 0; }
 }
 @keyframes hd-outlet-pulse {
   0%,100% { box-shadow: 0 0 0 3px rgba(34,211,238,.3),  0 0 14px rgba(34,211,238,.45); }

@@ -43,7 +43,13 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
           <div class="wnd-turbine">
             <div class="wnd-tower-base"></div>
             <span class="wnd-turbine-dot wnd-turbine-inlet"></span>
-            <span class="wnd-turbine-dot wnd-turbine-outlet"></span>
+            <div class="wnd-streamlines" aria-hidden="true">
+              <span class="wnd-sl" style="--si:1;--sy:-38px;--sw:52px"></span>
+              <span class="wnd-sl" style="--si:2;--sy:-18px;--sw:38px"></span>
+              <span class="wnd-sl" style="--si:3;--sy:  2px;--sw:60px"></span>
+              <span class="wnd-sl" style="--si:4;--sy: 22px;--sw:44px"></span>
+              <span class="wnd-sl" style="--si:5;--sy: 42px;--sw:34px"></span>
+            </div>
             <div class="wnd-rotor">
               <span v-for="n in 3" :key="n" class="wnd-blade" :style="`--r:${(n-1)*120}deg`"></span>
               <span class="wnd-hub"></span>
@@ -57,10 +63,14 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
       <div class="wnd-conn">
         <div class="wnd-badge-spacer"></div>
         <div class="wnd-shaft-wrap">
-          <div class="wnd-shaft-track">
-            <span class="wnd-sdot" style="--sd:0s"></span>
-            <span class="wnd-sdot" style="--sd:.45s"></span>
-            <span class="wnd-sdot" style="--sd:.9s"></span>
+          <div class="wnd-shaft-row">
+            <span class="wnd-shaft-cap wnd-shaft-cap-left"></span>
+            <div class="wnd-shaft-track">
+              <span class="wnd-sdot" style="--sd:0s"></span>
+              <span class="wnd-sdot" style="--sd:.55s"></span>
+              <span class="wnd-sdot" style="--sd:1.1s"></span>
+            </div>
+            <span class="wnd-shaft-cap wnd-shaft-cap-right"></span>
           </div>
           <span class="wnd-conn-lbl">傳動軸</span>
         </div>
@@ -71,7 +81,6 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
         <div class="wnd-badge wnd-badge-yellow">電能</div>
         <div class="wnd-gen-wrap">
           <div class="wnd-gen-body">
-            <span class="wnd-gen-dot wnd-gen-inlet"></span>
             <span class="wnd-gen-dot wnd-gen-terminal"></span>
             <div class="wnd-coils" aria-hidden="true">
               <span class="wnd-coil" style="--cd:0s"></span>
@@ -281,10 +290,10 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   background: #38bdf8;
   border: 2.5px solid #fff;
   box-shadow: 0 0 0 2px rgba(56,189,248,.22);
-  z-index: 1;      /* 低於 rotor(2)，葉片會轉過其前方 */
+  z-index: 5;
   display: block;
 }
-.wnd-turbine-inlet  { left:  -54px; }   /* dot center ≈ 81px from hub > 74px 葉片半徑，不碰扇葉 */
+.wnd-turbine-inlet  { left:  -54px; }
 .wnd-turbine-outlet { right: -54px; background: #94a3b8; box-shadow: 0 0 0 2px rgba(148,163,184,.22); }
 
 /* 旋轉容器比機艙大很多，葉片伸出圓圈外才像真實風車
@@ -331,6 +340,24 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   z-index: 2;
   display: block;
 }
+.wnd-streamlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.wnd-sl {
+  position: absolute;
+  left: -80px;
+  top: calc(50% + var(--sy));
+  width: var(--sw);
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, rgba(147,197,253,.7) 40%, rgba(96,165,250,.5) 70%, transparent 100%);
+  animation: wnd-sl-flow 1.8s ease-in-out infinite;
+  animation-delay: calc((var(--si) - 1) * 0.36s);
+  display: block;
+}
 
 /* 塔柱：放在 .wnd-turbine 內部，相對 turbine 定位，溢出範圍在 wrap padding 內，不碰標籤 */
 .wnd-tower-base {
@@ -351,25 +378,54 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.wnd-shaft-row {
+  align-self: flex-start;
+  width: calc(100% + 18px);
+  display: flex;
+  align-items: center;
+}
+.wnd-shaft-cap {
+  border-radius: 50%;
+  background: #94a3b8;
+  border: 2.5px solid #fff;
+  box-shadow: 0 0 0 2px rgba(148,163,184,.22);
+  flex-shrink: 0;
+  display: block;
+}
+.wnd-shaft-cap-left {
+  width: 13px;
+  height: 13px;
+}
+.wnd-shaft-cap-right {
+  width: 16px;
+  height: 16px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px rgba(148,163,184,.25);
+  z-index: 4;
 }
 .wnd-shaft-track {
   position: relative;
-  width: 100%;
-  height: 10px;
+  flex: 1;
+  height: 12px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #cbd5e1, #94a3b8, #cbd5e1);
+  background: linear-gradient(90deg, #cbd5e1 0%, #94a3b8 46%, #cbd5e1 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.52),
+    0 5px 12px rgba(15,23,42,.1);
   overflow: hidden;
 }
 .wnd-sdot {
   position: absolute;
-  top: 50%;
+  top: 2px;
   left: 0;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,.85);
-  transform: translateY(-50%);
-  animation: wnd-sdot 1.35s linear infinite;
+  background: rgba(255,255,255,.88);
+  animation: wnd-sdot 1.65s linear infinite;
   animation-delay: var(--sd);
   display: block;
 }
@@ -406,7 +462,11 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   z-index: 3;
   display: block;
 }
-.wnd-gen-inlet    { left: -9px; background: #94a3b8; box-shadow: 0 0 0 3px rgba(148,163,184,.25); }
+.wnd-gen-inlet {
+  left: -9px;
+  background: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148,163,184,.25);
+}
 .wnd-gen-terminal {
   right: -9px;
   background: #facc15;
@@ -550,6 +610,12 @@ import transmissionTower from '@/assets/energy/transmission-tower.svg'
   to   { stroke-dashoffset: 0; }
 }
 @keyframes wnd-spin { to { transform: rotate(360deg); } }
+@keyframes wnd-sl-flow {
+  0%   { transform: translateX(0);    opacity: 0; }
+  15%  { opacity: 1; }
+  80%  { opacity: .6; }
+  100% { transform: translateX(220px); opacity: 0; }
+}
 @keyframes wnd-sdot {
   from { left: -10%; opacity: 0; }
   15%  { opacity: 1; }

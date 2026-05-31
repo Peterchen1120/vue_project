@@ -22,6 +22,7 @@
     <!-- 這裡顯示 HomeView / MapView / QuizView 等頁面 -->
     <RouterView />
 
+
     <!-- 頁尾區塊 -->
     <footer id="footer">
       <div class="footer-content">
@@ -63,6 +64,8 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
+
 
 const navItems = [
   { text: 'SDG 7 介紹', to: '/sdg7' },
@@ -273,6 +276,7 @@ const footerLinks = [
     text-decoration: none;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
   }
+
 
   /* App 共用 RWD */
   @media (max-width: 768px) {
