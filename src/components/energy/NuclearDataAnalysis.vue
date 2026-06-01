@@ -134,29 +134,41 @@
     <div v-show="activeTab === 'proscons'" class="nuc-panel">
 
       <div class="nuc-block">
-        <h3 class="nuc-block-title">核能優點</h3>
-        <p class="nuc-section-lead">核能的最大優點是穩定與高能量密度。IEA 指出，核能目前提供全球約 10% 電力，也是水力之後第二大低排放電力來源。核電廠可長時間連續運轉，對需要穩定供電的電力系統有價值。</p>
-        <div class="nuc-pc-grid">
-          <div v-for="pro in nuclearPros" :key="pro.title" class="nuc-pc-card nuc-pc-card--pro">
-            <div class="nuc-pc-head">
-              <div class="nuc-pc-icon">{{ pro.icon }}</div>
-              <div class="nuc-pc-title">{{ pro.title }}</div>
+        <div class="nuc-pc-split">
+          <!-- 優點欄 -->
+          <div class="nuc-pc-col nuc-pc-col--pro">
+            <div class="nuc-pc-col-header">
+              <span class="nuc-pc-col-icon">✅</span>
+              <h3 class="nuc-pc-col-title">核能優點</h3>
             </div>
-            <p class="nuc-pc-desc">{{ pro.desc }}</p>
+            <p class="nuc-pc-col-lead">穩定供電、低運轉碳排與高能量密度，是核能在能源轉型討論中佔有一席之地的核心原因。</p>
+            <div class="nuc-pc-list">
+              <div v-for="pro in nuclearPros" :key="pro.title" class="nuc-pc-item nuc-pc-item--pro">
+                <div class="nuc-pc-item-icon">{{ pro.icon }}</div>
+                <div class="nuc-pc-item-body">
+                  <div class="nuc-pc-item-title">{{ pro.title }}</div>
+                  <p class="nuc-pc-item-desc">{{ pro.desc }}</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="nuc-block">
-        <h3 class="nuc-block-title">限制與風險</h3>
-        <p class="nuc-section-lead">核能的爭議核心在風險與治理成本。核電需要極高安全標準，事故雖罕見但後果嚴重；用過核燃料需要長期管理；新建核電常面臨高資本成本、工期延誤與社會接受度問題。</p>
-        <div class="nuc-pc-grid">
-          <div v-for="risk in nuclearRisks" :key="risk.title" class="nuc-pc-card nuc-pc-card--risk">
-            <div class="nuc-pc-head">
-              <div class="nuc-pc-icon">{{ risk.icon }}</div>
-              <div class="nuc-pc-title">{{ risk.title }}</div>
+          <!-- 風險欄 -->
+          <div class="nuc-pc-col nuc-pc-col--risk">
+            <div class="nuc-pc-col-header">
+              <span class="nuc-pc-col-icon">⚠️</span>
+              <h3 class="nuc-pc-col-title">限制與風險</h3>
             </div>
-            <p class="nuc-pc-desc">{{ risk.desc }}</p>
+            <p class="nuc-pc-col-lead">高治理成本、長期廢料管理與事故風險，使核能在各國政策中仍是高度爭議的選項。</p>
+            <div class="nuc-pc-list">
+              <div v-for="risk in nuclearRisks" :key="risk.title" class="nuc-pc-item nuc-pc-item--risk">
+                <div class="nuc-pc-item-icon">{{ risk.icon }}</div>
+                <div class="nuc-pc-item-body">
+                  <div class="nuc-pc-item-title">{{ risk.title }}</div>
+                  <p class="nuc-pc-item-desc">{{ risk.desc }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -199,59 +211,44 @@
         </div>
       </div>
 
-      <!-- 四象限定位圖 -->
+      <!-- 每度電碳排比較 -->
       <div class="nuc-block">
-        <h3 class="nuc-block-title">能源類型四象限：依「是否再生」與「碳排放高低」分類</h3>
-        <div class="nuc-quadrant-wrap">
-          <svg class="nuc-quadrant-svg" viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg">
-            <!-- 背景四個象限 -->
-            <rect x="0"   y="0"   width="238" height="168" rx="0" fill="rgba(240,253,244,.85)"/>
-            <rect x="242" y="0"   width="238" height="168" rx="0" fill="rgba(254,249,195,.7)"/>
-            <rect x="0"   y="172" width="238" height="168" rx="0" fill="rgba(240,249,255,.7)"/>
-            <rect x="242" y="172" width="238" height="168" rx="0" fill="rgba(254,242,242,.8)"/>
+        <h3 class="nuc-block-title">各能源每度電生命週期碳排放量（g CO₂eq / kWh）</h3>
+        <p class="nuc-section-lead">以下數據為 IPCC 生命週期中位數估算，涵蓋建造、燃料開採、運轉至除役的全程排放。</p>
 
-            <!-- 軸線 -->
-            <line x1="240" y1="0" x2="240" y2="340" stroke="#cbd5e1" stroke-width="2"/>
-            <line x1="0" y1="170" x2="480" y2="170" stroke="#cbd5e1" stroke-width="2"/>
-
-            <!-- 軸標籤 -->
-            <text x="240" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#64748b">再生能源（可快速自然補充）</text>
-            <text x="240" y="328" text-anchor="middle" font-size="11" font-weight="700" fill="#64748b">非再生能源</text>
-            <text x="8" y="170" text-anchor="start" font-size="11" font-weight="700" fill="#64748b" transform="rotate(-90 8 170)" dy="12">碳排低</text>
-            <text x="472" y="170" text-anchor="end" font-size="11" font-weight="700" fill="#64748b" transform="rotate(90 472 170)" dy="12">碳排高</text>
-
-            <!-- 象限標題 -->
-            <text x="120" y="38" text-anchor="middle" font-size="10" font-weight="800" fill="#15803d">再生 × 低碳</text>
-            <text x="360" y="38" text-anchor="middle" font-size="10" font-weight="800" fill="#ca8a04">非再生 × 低碳</text>
-            <text x="120" y="198" text-anchor="middle" font-size="10" font-weight="800" fill="#0369a1">再生 × 可能有碳</text>
-            <text x="360" y="198" text-anchor="middle" font-size="10" font-weight="800" fill="#b91c1c">非再生 × 高碳</text>
-
-            <!-- 象限一：再生低碳 -->
-            <g v-for="(item, i) in quadrantItems[0]" :key="'q0-'+i">
-              <rect :x="item.x-28" :y="item.y-11" width="56" height="22" rx="11" :fill="item.bg"/>
-              <text :x="item.x" :y="item.y+4" text-anchor="middle" font-size="10" font-weight="700" :fill="item.color">{{ item.label }}</text>
-            </g>
-
-            <!-- 象限二：非再生低碳（核能） -->
-            <rect x="280" y="210" width="80" height="26" rx="13" fill="rgba(100,40,180,.18)" stroke="#6428b4" stroke-width="1.5"/>
-            <text x="320" y="228" text-anchor="middle" font-size="11" font-weight="900" fill="#4c1d95">⚛ 核能</text>
-
-            <!-- 象限三：再生可能有碳 -->
-            <rect x="60" y="210" width="88" height="26" rx="13" fill="rgba(14,165,233,.12)" stroke="#0284c7" stroke-width="1.2"/>
-            <text x="104" y="228" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0369a1">生質能（條件）</text>
-
-            <!-- 象限四：非再生高碳 -->
-            <g v-for="(item, i) in quadrantItems[3]" :key="'q3-'+i">
-              <rect :x="item.x-28" :y="item.y-11" width="56" height="22" rx="11" :fill="item.bg"/>
-              <text :x="item.x" :y="item.y+4" text-anchor="middle" font-size="10" font-weight="700" :fill="item.color">{{ item.label }}</text>
-            </g>
-
-            <!-- CCUS 跨界標記 -->
-            <rect x="266" y="278" width="108" height="24" rx="12" fill="rgba(251,146,60,.15)" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4 2"/>
-            <text x="320" y="295" text-anchor="middle" font-size="9.5" font-weight="700" fill="#c2410c">天然氣 + CCUS（爭議中）</text>
-          </svg>
+        <!-- 長條圖 -->
+        <div class="nuc-bar-chart">
+          <div v-for="et in energyTypeRows" :key="et.name" class="nuc-bar-row">
+            <div class="nuc-bar-label">
+              <span class="nuc-bar-icon">{{ et.icon }}</span>
+              <span class="nuc-bar-name">{{ et.name }}</span>
+            </div>
+            <div class="nuc-bar-track">
+              <div class="nuc-bar-fill" :style="{ width: (et.gco2 / 820 * 100) + '%', background: et.barColor }"></div>
+            </div>
+            <span class="nuc-bar-val">{{ et.gco2 }}</span>
+          </div>
+          <div class="nuc-bar-axis-label">g CO₂eq / kWh</div>
         </div>
-        <p class="nuc-source">資料來源：<a href="https://www.iea.org/energy-system/electricity/nuclear-power" target="_blank">IEA｜Nuclear Power</a>、<a href="https://ourworldindata.org/nuclear-energy" target="_blank">Our World in Data｜Nuclear Energy</a>、<a href="https://climate.ec.europa.eu/eu-action/eu-taxonomy-sustainable-activities_en" target="_blank">European Commission｜EU Taxonomy</a></p>
+
+        <!-- 能源說明 -->
+        <div class="nuc-etype-desc-grid">
+          <div
+            v-for="et in energyTypeRows"
+            :key="'desc-'+et.name"
+            class="nuc-etype-desc-card"
+            :class="et.highlight ? 'nuc-etype-desc-card--highlight' : ''"
+          >
+            <div class="nuc-etype-desc-head">
+              <span class="nuc-etype-desc-icon">{{ et.icon }}</span>
+              <span class="nuc-etype-desc-name">{{ et.name }}</span>
+              <span class="nuc-etype-desc-badge" :style="{ background: et.renewBg, color: et.renewColor }">{{ et.renewShort }}</span>
+            </div>
+            <p class="nuc-etype-desc-text">{{ et.note }}</p>
+          </div>
+        </div>
+
+        <p class="nuc-source">資料來源：<a href="https://www.ipcc.ch/report/ar6-wg3/" target="_blank">IPCC AR6 WGIII（2022）</a>、<a href="https://ourworldindata.org/safest-sources-of-energy" target="_blank">Our World in Data｜Carbon intensity of electricity</a>、<a href="https://www.iea.org/energy-system/electricity/nuclear-power" target="_blank">IEA｜Nuclear Power</a></p>
       </div>
 
     </div>
@@ -502,24 +499,19 @@ const transitionLayers = [
 ]
 
 /* ── 四象限資料 ── */
-const quadrantItems = [
-  // 象限0：再生 × 低碳
-  [
-    { label: '太陽能', x: 68,  y: 70,  bg: 'rgba(251,191,36,.25)', color: '#92400e' },
-    { label: '風力',   x: 155, y: 55,  bg: 'rgba(34,197,94,.2)',   color: '#15803d' },
-    { label: '水力',   x: 68,  y: 120, bg: 'rgba(14,165,233,.2)',  color: '#0369a1' },
-    { label: '地熱',   x: 155, y: 120, bg: 'rgba(220,38,38,.15)',   color: '#b91c1c' },
-  ],
-  // 象限1：非再生 × 低碳（核能，inline above）
-  [],
-  // 象限2：再生 × 可能有碳（生質能，inline above）
-  [],
-  // 象限3：非再生 × 高碳
-  [
-    { label: '燃煤',   x: 304, y: 250, bg: 'rgba(113,63,18,.2)',   color: '#78350f' },
-    { label: '燃油',   x: 375, y: 250, bg: 'rgba(220,38,38,.18)',   color: '#991b1b' },
-    { label: '天然氣', x: 340, y: 305, bg: 'rgba(249,115,22,.18)', color: '#9a3412' },
-  ],
+
+/* ── 能源碳排對照（IPCC AR6 生命週期中位數） ── */
+const energyTypeRows = [
+  { icon: '💨', name: '風力（陸域）', renewShort: '再生', renewBg: 'rgba(34,197,94,.15)', renewColor: '#15803d', gco2: 11,  barColor: '#22c55e', note: '生命週期碳排最低；間歇性需搭配儲能或基載' },
+  { icon: '⚛',  name: '核能',         renewShort: '非再生', renewBg: 'rgba(139,92,246,.15)', renewColor: '#6d28d9', gco2: 12,  barColor: '#8b5cf6', note: '運轉幾乎零排放；鈾燃料無法自然補充', highlight: true },
+  { icon: '💧', name: '水力',          renewShort: '再生', renewBg: 'rgba(34,197,94,.15)', renewColor: '#15803d', gco2: 24,  barColor: '#34d399', note: '大型水庫蓄水後甲烷分解可能提高實際排放' },
+  { icon: '🌱', name: '地熱',          renewShort: '再生', renewBg: 'rgba(34,197,94,.15)', renewColor: '#15803d', gco2: 38,  barColor: '#4ade80', note: '穩定基載；火山地熱區域可能釋出天然 CO₂' },
+  { icon: '☀️', name: '太陽能（屋頂）',renewShort: '再生', renewBg: 'rgba(34,197,94,.15)', renewColor: '#15803d', gco2: 41,  barColor: '#86efac', note: '製造矽晶太陽能板需消耗較多能源' },
+  { icon: '☀️', name: '太陽能（地面）',renewShort: '再生', renewBg: 'rgba(34,197,94,.15)', renewColor: '#15803d', gco2: 48,  barColor: '#86efac', note: '大型電廠效率較高，但占地面積廣' },
+  { icon: '🌿', name: '生質能',        renewShort: '再生', renewBg: 'rgba(251,191,36,.2)', renewColor: '#92400e', gco2: 230, barColor: '#fbbf24', note: '燃燒直接排放 CO₂；低碳前提是植物碳吸收能完全抵銷' },
+  { icon: '🔥', name: '天然氣',        renewShort: '非再生', renewBg: 'rgba(220,38,38,.1)', renewColor: '#991b1b', gco2: 490, barColor: '#f97316', note: '碳排約燃煤 60%，但甲烷洩漏會大幅拉高實際暖化效應' },
+  { icon: '🛢️', name: '燃油',          renewShort: '非再生', renewBg: 'rgba(220,38,38,.1)', renewColor: '#991b1b', gco2: 650, barColor: '#ef4444', note: '主要用於交通；發電應用逐年下降' },
+  { icon: '⛏️', name: '燃煤',          renewShort: '非再生', renewBg: 'rgba(220,38,38,.1)', renewColor: '#991b1b', gco2: 820, barColor: '#dc2626', note: '碳排最高；另有大量 PM2.5、SO₂、NOₓ 等空污' },
 ]
 
 /* ── 全球前五國 ── */
@@ -1015,31 +1007,66 @@ onBeforeUnmount(() => {
 }
 
 /* ═══ Tab 2：優缺點 ════════════════════════════════════════ */
-.nuc-pc-grid {
+.nuc-pc-split {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
 }
-.nuc-pc-card {
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 3px 14px rgba(15,23,42,.06);
-  transition: transform 0.2s;
+.nuc-pc-col {
+  border-radius: 20px;
+  padding: 24px;
 }
-.nuc-pc-card:hover { transform: translateY(-2px); }
-.nuc-pc-card--pro {
-  background: rgba(237,233,254,.65);
-  border: 1px solid rgba(100,40,180,.18);
+.nuc-pc-col--pro {
+  background: rgba(240,253,244,.8);
+  border: 1px solid rgba(21,128,61,.15);
 }
-.nuc-pc-card--risk {
-  background: rgba(254,242,242,.75);
-  border: 1px solid rgba(220,38,38,.18);
+.nuc-pc-col--risk {
+  background: rgba(254,242,242,.8);
+  border: 1px solid rgba(220,38,38,.15);
 }
-.nuc-pc-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
-.nuc-pc-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; margin-top: 1px; }
-.nuc-pc-title { font-size: 0.95rem; font-weight: 900; color: #1e1b4b; line-height: 1.3; }
-.nuc-pc-card--risk .nuc-pc-title { color: #7f1d1d; }
-.nuc-pc-desc { font-size: 0.81rem; color: #4b5563; line-height: 1.75; margin: 0; }
+.nuc-pc-col-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.nuc-pc-col-icon { font-size: 1.3rem; }
+.nuc-pc-col-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #1e1b4b;
+  margin: 0;
+}
+.nuc-pc-col--risk .nuc-pc-col-title { color: #7f1d1d; }
+.nuc-pc-col-lead {
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.nuc-pc-list { display: flex; flex-direction: column; gap: 14px; }
+.nuc-pc-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.nuc-pc-item-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.nuc-pc-item-body { flex: 1; }
+.nuc-pc-item-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 3px;
+}
+.nuc-pc-item--risk .nuc-pc-item-title { color: #7f1d1d; }
+.nuc-pc-item-desc { font-size: 0.78rem; color: #4b5563; line-height: 1.7; margin: 0; }
 
 /* 數據卡 */
 .nuc-data-cards {
@@ -1106,8 +1133,8 @@ onBeforeUnmount(() => {
   flex-shrink: 0;
 }
 .nuc-layer-body { flex: 1; }
-.nuc-layer-title { font-size: 1rem; font-weight: 900; color: #1e1b4b; margin-bottom: 8px; }
-.nuc-layer-desc { font-size: 0.84rem; color: #475569; line-height: 1.8; margin: 0; }
+.nuc-layer-title { font-size: 1.05rem; font-weight: 900; color: #1e1b4b; margin-bottom: 8px; }
+.nuc-layer-desc { font-size: 0.92rem; color: #475569; line-height: 1.8; margin: 0; }
 
 .nuc-summary-box {
   background: linear-gradient(135deg, rgba(109,40,217,.12), rgba(100,40,180,.08));
@@ -1130,18 +1157,92 @@ onBeforeUnmount(() => {
   line-height: 1.4;
 }
 
-/* 四象限 SVG */
-.nuc-quadrant-wrap {
-  background: rgba(255,255,255,.85);
-  border: 1px solid rgba(100,40,180,.14);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 18px rgba(15,23,42,.06);
+/* 長條圖 */
+.nuc-bar-chart {
+  background: rgba(248,250,252,.9);
+  border: 1px solid rgba(15,23,42,.07);
+  border-radius: 16px;
+  padding: 20px 24px 14px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.nuc-quadrant-svg {
-  width: 100%;
-  height: auto;
-  display: block;
+.nuc-bar-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 52px;
+  align-items: center;
+  gap: 12px;
+}
+.nuc-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nuc-bar-icon { font-size: 1.1rem; flex-shrink: 0; }
+.nuc-bar-name { font-size: 0.92rem; font-weight: 700; color: #1e293b; }
+.nuc-bar-track {
+  height: 12px;
+  background: rgba(15,23,42,.06);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.nuc-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.7s ease;
+  min-width: 4px;
+}
+.nuc-bar-val {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #374151;
+  text-align: right;
+}
+.nuc-bar-axis-label {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* 能源說明卡片 */
+.nuc-etype-desc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.nuc-etype-desc-card {
+  background: #fff;
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.nuc-etype-desc-card--highlight {
+  background: rgba(237,233,254,.4);
+  border-color: rgba(139,92,246,.2);
+}
+.nuc-etype-desc-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.nuc-etype-desc-icon { font-size: 1.1rem; }
+.nuc-etype-desc-name { font-size: 0.95rem; font-weight: 800; color: #1e293b; }
+.nuc-etype-desc-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.nuc-etype-desc-text {
+  font-size: 0.85rem;
+  color: #4b5563;
+  line-height: 1.7;
+  margin: 0;
 }
 
 /* ═══ Tab 4：全球前五 ══════════════════════════════════════ */
@@ -1242,7 +1343,7 @@ onBeforeUnmount(() => {
   .nuc-pair-topic-badge { font-size: 0.62rem; padding: 3px 5px; }
   .nuc-country-grid { grid-template-columns: 1fr; }
   .nuc-data-cards { grid-template-columns: repeat(2, 1fr); }
-  .nuc-pc-grid { grid-template-columns: 1fr; }
+  .nuc-pc-split { grid-template-columns: 1fr; }
   .nuc-tabs { gap: 6px; }
   .nuc-tab { min-width: 80px; padding: 11px 10px; font-size: 0.82rem; }
 }
