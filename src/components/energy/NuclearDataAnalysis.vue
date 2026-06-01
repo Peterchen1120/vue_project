@@ -1179,7 +1179,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 8px;
 }
-.nuc-bar-icon { font-size: 1.1rem; flex-shrink: 0; }
+.nuc-bar-icon { font-size: 1.1rem; flex-shrink: 0; width: 1.5rem; text-align: center; }
 .nuc-bar-name { font-size: 0.92rem; font-weight: 700; color: #1e293b; }
 .nuc-bar-track {
   height: 12px;
